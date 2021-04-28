@@ -1,0 +1,4 @@
+map:
+  center: [1.6, 42.55]
+  zoom: 11
+  style: mapbox://styles/mapbox/light-v9

@@ -7,6 +7,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "mapbox-composition": "^1.0.0",
+    "mapbox-gl": "^2.2.0",
     "reset-css": "^5.0.1",
     "vue": "^3.0.5"
   },
