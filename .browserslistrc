@@ -1,0 +1,3 @@
+# Exclude IE to allow proper Mapbox build
+defaults
+not IE > 0
