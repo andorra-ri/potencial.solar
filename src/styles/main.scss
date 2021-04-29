@@ -5,3 +5,44 @@
 #map {
 	height: 100vh;
 }
+
+.metrics {
+	margin: 0.75rem 0.75rem 0;
+
+	li {
+		display: flex;
+		white-space: nowrap;
+		margin: 0.25rem 0;
+
+		em {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			text-transform: uppercase;
+			opacity: 0.5;
+			font-size: 0.85em;
+			margin-right: 0.5rem;
+
+			&::after {
+				content: '';
+				flex: 1;
+				margin-left: 0.5rem;
+				border-top: 1px solid #0002;
+			}
+		}
+
+		strong { font-size: 1.2em; }
+	}
+}
+
+small { font-size: 0.75em; }
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }

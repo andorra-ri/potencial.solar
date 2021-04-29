@@ -1,5 +1,6 @@
 <template>
 	<div id="map" />
+	<roof-popup v-if="activeRoof" :roof="activeRoof" to="roof-popup" />
 </template>
 
 <script>
@@ -8,10 +9,14 @@ import { useMap, useControls, useGeoJSON, usePopup } from 'mapbox-composition';
 import config from './config.yaml';
 
 import ROOFS from './assets/roofs.json';
+import useRoof from '/@/models/roof';
+import RoofPopup from '/@/components/RoofPopup.vue';
+
 const { VITE_MAPBOX_TOKEN: accessToken } = import.meta.env;
 
 export default {
 	name: 'App',
+	components: { RoofPopup },
 	setup() {
 		const activeRoof = ref(undefined);
 
@@ -31,7 +36,7 @@ export default {
 				layers: config.layers,
 				onClick: ({ lngLat, features }) => {
 					popup.setLocation(lngLat);
-					activeRoof.value = features[0].properties;
+					activeRoof.value = useRoof(features[0].properties);
 				},
 			});
 		});
