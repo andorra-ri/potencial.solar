@@ -1,3 +1,13 @@
+constants:
+  PANEL_POWER: 0.3
+  EFFICIENCY: 0.83 # 83%
+  COSTS:
+    INSTALL: [[2, 1.64], [6, 1.36], [20, 1.25], [50, 1.16], [Infinity, 1.04]]
+    OPERATION: [[50, 25], [Infinity, 18]]
+  ENERGY_PRICE: 0.13
+  ENERGY_INJECT_PRICE: 0.103
+  SELF_SUPPLY: 0.5
+
 map:
   center: [1.6, 42.55]
   zoom: 11

@@ -9,7 +9,6 @@ import { useMap, useControls, useGeoJSON, usePopup } from 'mapbox-composition';
 import config from './config.yaml';
 
 import ROOFS from './assets/roofs.json';
-import useRoof from '/@/models/roof';
 import RoofPopup from '/@/components/RoofPopup.vue';
 
 const { VITE_MAPBOX_TOKEN: accessToken } = import.meta.env;
@@ -33,10 +32,10 @@ export default {
 			useGeoJSON(map, {
 				name: 'roofs',
 				source: ROOFS,
-				layers: config.layers,
+				layers: [config.layers.roofs],
 				onClick: ({ lngLat, features }) => {
 					popup.setLocation(lngLat);
-					activeRoof.value = useRoof(features[0].properties);
+					activeRoof.value = features[0].properties;
 				},
 			});
 		});

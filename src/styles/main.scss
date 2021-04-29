@@ -1,14 +1,35 @@
 :root {
 	font-size: 16px;
+	color: #323637;
 }
 
 #map {
 	height: 100vh;
 }
 
-.metrics {
-	margin: 0.75rem 0.75rem 0;
+.mapboxgl-popup {
+	min-width: 275px;
+}
 
+h2 {
+	margin: 0.75rem;
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+details {
+	margin: 0 0.75rem;
+}
+
+summary {
+	margin: 0.75rem 0 0;
+	text-transform: uppercase;
+	font-size: 0.85em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.metrics {
 	li {
 		display: flex;
 		white-space: nowrap;
@@ -18,9 +39,7 @@
 			flex: 1;
 			display: flex;
 			align-items: center;
-			text-transform: uppercase;
 			opacity: 0.5;
-			font-size: 0.85em;
 			margin-right: 0.5rem;
 
 			&::after {
@@ -33,6 +52,11 @@
 
 		strong { font-size: 1.2em; }
 	}
+}
+
+input {
+	margin: 0.5rem 0 0;
+	width: 100%;
 }
 
 small { font-size: 0.75em; }
