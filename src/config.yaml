@@ -14,22 +14,31 @@ map:
   style: mapbox://styles/mapbox/light-v9
 
 layers:
-  - name: Buildings
+  roofs:
+    name: Roofs
     type: fill
     paint:
       fill-color: [
         'interpolate', ['linear'],
         ['get', 'mean_rad'],
-        1000, '#ddd',
-        1200, '#f65',
-        1400, '#f3e79b',
-        1600, '#7d7',
+        1199, '#e0e0e0',
+        1200, '#f3e79b',
+        1400, '#f8a07e',
+        1600, '#ce6693',
         1800, '#5c53a5',
       ]
-      fill-opacity: 0.9
       fill-outline-color: [
         'interpolate', ['linear'],
         ['zoom'],
         12, transparent,
         19, '#f0f0f0',
       ]
+    metadata:
+      name: 'Irradiació per coberta'
+      labels:
+        # Hack to display appropriate legend tags
+        1199: 1200 Wh/m²
+        1200: ' '
+        1400: ' '
+        1600: ' '
+        1800: 1800Wh/m²

@@ -1,10 +1,17 @@
 :root {
 	font-size: 16px;
 	color: #323637;
+
+	--map-legend-minwidth: 200px;
 }
 
 #map {
 	height: 100vh;
+}
+
+.mapboxgl-ctrl-legend-pane summary {
+	text-transform: none;
+	font-size: 1.125em;
 }
 
 .mapboxgl-popup {

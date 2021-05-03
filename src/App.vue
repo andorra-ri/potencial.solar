@@ -6,6 +6,7 @@
 <script>
 import { ref, onMounted } from 'vue';
 import { useMap, useControls, useGeoJSON, usePopup } from 'mapbox-composition';
+import LegendControl from 'mapboxgl-legend';
 import config from './config.yaml';
 
 import ROOFS from './assets/roofs.json';
@@ -21,8 +22,9 @@ export default {
 
 		onMounted(async () => {
 			const map = await useMap('map', { ...config.map, accessToken });
-			const { addNavigation } = useControls(map);
+			const { addControl, addNavigation } = useControls(map);
 			addNavigation();
+			addControl('legend', 'top-left', new LegendControl({ toggler: true }));
 
 			// Hide default style buildings to avoid confusion
 			map.setLayoutProperty('building', 'visibility', 'none');
