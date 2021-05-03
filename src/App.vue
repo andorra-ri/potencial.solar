@@ -24,6 +24,9 @@ export default {
 			const { addNavigation } = useControls(map);
 			addNavigation();
 
+			// Hide default style buildings to avoid confusion
+			map.setLayoutProperty('building', 'visibility', 'none');
+
 			const popup = usePopup(map, {
 				name: 'roof-popup',
 				closeOnClick: false,
