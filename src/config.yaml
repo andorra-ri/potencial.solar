@@ -1,12 +1,16 @@
 constants:
-  PANEL_POWER: 0.3
+  LIFESPAN: 25 # years
+  PANEL_AREA: 1.8 # 1.8 m2
+  PANEL_POWER: 0.38 # 0.38 kWp
   EFFICIENCY: 0.83 # 83%
   COSTS:
-    INSTALL: [[2, 1.64], [6, 1.36], [20, 1.25], [50, 1.16], [Infinity, 1.04]]
-    OPERATION: [[50, 25], [Infinity, 18]]
-  ENERGY_PRICE: 0.13
-  ENERGY_INJECT_PRICE: 0.103
-  SELF_SUPPLY: 0.5
+    REF: 1.3 # €/kWp
+    INSTALL: [[2, 1.50], [6, 1.3], [20, 1.15], [50, 1.10], [Infinity, 1]] # €/kW
+    OPERATION: [[50, 25], [Infinity, 18]] # €/kWp
+  GRANT: 0.4 # 40%
+  GRANT_MAX: 20000 # €
+  ENERGY_PRICE: 0.0853 # €/kWh
+  ENERGY_PRICE_INCREASE: 0.015 # 1.5%/year
 
 map:
   center: [1.6, 42.55]
@@ -42,3 +46,64 @@ layers:
         1400: ' '
         1600: ' '
         1800: 1800Wh/m²
+
+  buildings:
+    name: Buildings
+    type: fill
+    paint:
+      fill-color: [
+        'match',
+        ['case',
+          ['==', ['get', 'return_period'], null], 'NOT_APPLICABLE',
+          ['<=', ['get', 'return_period'], 7], 'VERY_GOOD',
+          ['all', ['>', ['get', 'return_period'], 7], ['<=', ['get', 'return_period'], 8]], 'GOOD',
+          ['all', ['>', ['get', 'return_period'], 8], ['<=', ['get', 'return_period'], 9]], 'AVG',
+          'BAD',
+        ],
+        'BAD', '#f65',
+        'AVG', '#f3e79b',
+        'GOOD', '#8c8',
+        'VERY_GOOD', '#497a49',
+        '#e0e0e0'
+      ]
+      fill-outline-color: [
+        'interpolate', ['linear'],
+        ['zoom'],
+        12, transparent,
+        19, '#f0f0f0',
+      ]
+    metadata:
+      name: 'Rendiment per edifici'
+      labels:
+        BAD: Baix
+        AVG: Moderat
+        GOOD: Bo
+        VERY_GOOD: Molt bo
+
+metrics:
+  area:
+    label: Àrea útil / total
+    unit: m2
+  panels:
+    label: Mòduls
+  power:
+    label: Potència
+    unit: kWp
+  energy:
+    label: Energia
+    unit: MWh/any
+  install_cost:
+    label: Inversió
+    unit: €
+  grant:
+    label: Subvenció
+    unit: €
+  year_operation_cost:
+    label: Cost operació
+    unit: €/any
+  year_profits:
+    label: Ingressos
+    unit: €/any
+  return_period:
+    label: Període de retorn
+    unit: anys
