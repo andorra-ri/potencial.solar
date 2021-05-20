@@ -1,6 +1,10 @@
 metric:
+  resource: Recurs solar
   installation: Instal·lació
   economics: Econòmic
+  radiation:
+    label: Irradiació
+    unit: Wh/m²
   area:
     label: Àrea útil / total
     unit: m²
