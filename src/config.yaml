@@ -79,31 +79,3 @@ layers:
         AVG: Moderat
         GOOD: Bo
         VERY_GOOD: Molt bo
-
-metrics:
-  area:
-    label: Àrea útil / total
-    unit: m2
-  panels:
-    label: Mòduls
-  power:
-    label: Potència
-    unit: kWp
-  energy:
-    label: Energia
-    unit: MWh/any
-  install_cost:
-    label: Inversió
-    unit: €
-  grant:
-    label: Subvenció
-    unit: €
-  year_operation_cost:
-    label: Cost operació
-    unit: €/any
-  year_profits:
-    label: Ingressos
-    unit: €/any
-  return_period:
-    label: Període de retorn
-    unit: anys

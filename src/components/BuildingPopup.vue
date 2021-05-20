@@ -2,11 +2,11 @@
 	<teleport :to="`#${to}`">
 		<h2>Edifici CESI {{ roof.cesi }}</h2>
 		<details v-for="(metrics, group) in { installation, economics }" :key="group" open>
-			<summary>{{ group }}</summary>
+			<summary>{{ t(`metric.${group}`) }}</summary>
 			<ul class="metrics">
 				<li v-for="(metric, name) in metrics" :key="name">
-					<em>{{ name }}</em>
-					<strong>{{ metric }} <small>unit</small></strong>
+					<em>{{ t(`metric.${name}.label`) }}</em>
+					<strong>{{ metric }} <small>{{ t(`metric.${name}.unit`, ' ') }}</small></strong>
 				</li>
 			</ul>
 		</details>
@@ -15,6 +15,7 @@
 
 <script>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useFormat } from '/@/utils/index';
 
 export default {
@@ -24,6 +25,7 @@ export default {
 		roof: { type: Object, required: true },
 	},
 	setup(props) {
+		const { t } = useI18n();
 		const { number } = useFormat('ca');
 
 		const installation = computed(() => ({
@@ -41,7 +43,7 @@ export default {
 			return_period: number(props.roof.return_period),
 		}));
 
-		return { installation, economics };
+		return { t, installation, economics };
 	},
 };
 </script>
