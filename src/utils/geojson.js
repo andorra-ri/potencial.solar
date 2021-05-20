@@ -21,7 +21,7 @@ export default function useGeoJSON() {
 	}, {});
 
 	// Merge geometries and aggregate properties of features with the same specified property
-	const mergeByProperty = (geojson, property, aggregators = {}) => {
+	const mergeByProperty = (geojson, property, aggregators) => {
 		const merged = Object.values(geojson.features.reduce((acc, feature) => {
 			const key = feature.properties[property];
 			const properties = { ...groupProperties(acc[key], feature), [property]: key };
@@ -32,10 +32,15 @@ export default function useGeoJSON() {
 		}, {}));
 
 		return onProperties(featureCollection(merged), properties => (
-			Object.entries(aggregators).reduce((acc, [name, aggregator]) => {
-				acc[name] = aggregator(properties[name]);
-				return acc;
-			}, { [property]: properties[property] })
+			typeof aggregators === 'function'
+				? Object.entries(properties).reduce((acc, [name, values]) => {
+					acc[name] = Array.isArray(values) ? aggregators(values) : values;
+					return acc;
+				}, {})
+				: Object.entries(aggregators || {}).reduce((acc, [name, aggregator]) => {
+					acc[name] = aggregator(properties[name]);
+					return acc;
+				}, { [property]: properties[property] })
 		));
 	};
 

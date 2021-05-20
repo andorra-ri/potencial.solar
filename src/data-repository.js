@@ -29,9 +29,8 @@ export default async function useDataRepository() {
 	// Group rooftops by CESI and aggregate variables
 	const { COSTS, GRANT, GRANT_MAX } = constants;
 	const sum = values => values.reduce((acc, value) => acc + value, 0);
-	const aggregators = { area: sum, use_area: sum, panels: sum, power: sum, energy: sum };
 	const { mergeByProperty } = useGeoJSON();
-	const mergedRoofs = mergeByProperty(rooftops, 'cesi', aggregators);
+	const mergedRoofs = mergeByProperty(rooftops, 'cesi', sum);
 
 	// Calculate building variables
 	/* eslint-disable camelcase */
