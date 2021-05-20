@@ -43,7 +43,7 @@
 
 <script>
 import { ref, computed } from 'vue';
-import { useFormat } from '/@/utils';
+import { useFormat } from '/@/utils/index';
 import { constants } from '/@/config.yaml';
 
 const { PANEL_POWER, EFFICIENCY, COSTS, ENERGY_PRICE, ENERGY_INJECT_PRICE } = constants;
