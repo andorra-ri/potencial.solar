@@ -1,15 +1,21 @@
 <template>
 	<teleport :to="`#${to}`">
 		<h2>Edifici CESI {{ roof.cesi }}</h2>
-		<details v-for="(metrics, group) in { resource, installation }" :key="group" open>
-			<summary>{{ t(`metric.${group}`) }}</summary>
-			<ul class="metrics">
-				<li v-for="(metric, name) in metrics" :key="name">
-					<em>{{ t(`metric.${name}.label`) }}</em>
-					<strong>{{ metric }} <small>{{ t(`metric.${name}.unit`, ' ') }}</small></strong>
-				</li>
-			</ul>
-		</details>
+		<section v-if="isUsable">
+			<details v-for="(metrics, group) in { resource, installation }" :key="group" open>
+				<summary>{{ t(`metric.${group}`) }}</summary>
+				<ul class="metrics">
+					<li v-for="(metric, name) in metrics" :key="name">
+						<em>{{ t(`metric.${name}.label`) }}</em>
+						<strong>
+							{{ metric }}
+							<small>{{ t(`metric.${name}.unit`, ' ') }}</small>
+						</strong>
+					</li>
+				</ul>
+			</details>
+		</section>
+		<p v-else class="not-usable">{{ t('rooftop_not_usable') }}</p>
 	</teleport>
 </template>
 
@@ -28,6 +34,7 @@ export default {
 		const { t } = useI18n();
 		const { number } = useFormat('ca');
 
+		const isUsable = computed(() => props.roof.panels > 0);
 		const resource = computed(() => ({ radiation: number(props.roof.mean_rad, 0) }));
 
 		const installation = computed(() => ({
@@ -37,7 +44,7 @@ export default {
 			energy: number(props.roof.energy, 2),
 		}));
 
-		return { t, resource, installation };
+		return { t, isUsable, resource, installation };
 	},
 };
 </script>

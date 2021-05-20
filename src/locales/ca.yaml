@@ -1,3 +1,6 @@
+rooftop_not_usable: Coberta no aprofitable
+building_not_usable: Edifici no aprofitable
+
 metric:
   resource: Recurs solar
   installation: Instal·lació
