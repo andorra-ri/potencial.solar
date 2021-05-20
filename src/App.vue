@@ -7,10 +7,9 @@
 import { ref, onMounted } from 'vue';
 import { useMap, useControls, useGeoJSON, usePopup } from 'mapbox-composition';
 import LegendControl from 'mapboxgl-legend';
-import config from './config.yaml';
-
-import ROOFS from './assets/roofs.json';
+import useDataRepository from '/@/data-repository';
 import RoofPopup from '/@/components/RoofPopup.vue';
+import config from './config.yaml';
 
 const { VITE_MAPBOX_TOKEN: accessToken } = import.meta.env;
 
@@ -21,6 +20,8 @@ export default {
 		const activeRoof = ref(undefined);
 
 		onMounted(async () => {
+			const { rooftops } = await useDataRepository();
+
 			const map = await useMap('map', { ...config.map, accessToken });
 			const { addControl, addNavigation } = useControls(map);
 			addNavigation();
@@ -36,7 +37,7 @@ export default {
 
 			useGeoJSON(map, {
 				name: 'roofs',
-				source: ROOFS,
+				source: rooftops,
 				layers: [config.layers.roofs],
 				onClick: ({ lngLat, features }) => {
 					popup.setLocation(lngLat);
