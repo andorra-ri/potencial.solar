@@ -1,5 +1,5 @@
 import { useGeoJSON } from '/@/utils/index';
-import { constants } from '/@/config.yaml';
+import { constants, carto } from '/@/config.yaml';
 
 // Averaged energy price across panels' lifespan
 const getMeanPrice = (basePrice, incrementRatio, lifespan) => (
@@ -18,7 +18,11 @@ export const TARIFF_BLUE = getMeanPrice(TARIFF_BLUE_BASE, PRICE_INCREASE, LIFESP
 export default async function useDataRepository() {
 	const { onProperties } = useGeoJSON();
 
-	const response = await fetch('/rooftops.json');
+	const { VITE_CARTO_TOKEN: token } = import.meta.env;
+	const { user, query } = carto;
+	const url = `https://${user}.carto.com/api/v2/sql?q=${query}&api_key=${token}&format=geojson`;
+
+	const response = await fetch(url);
 	const json = await response.json();
 
 	// Calculate rooftop variables

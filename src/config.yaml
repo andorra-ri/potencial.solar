@@ -14,6 +14,10 @@ constants:
     TARIFF_BLUE_BASE: 0.1 # €/kWh
     PRICE_INCREASE: 0.015 # 1.5%/year
 
+carto:
+  user: obsa-andorra
+  query: SELECT cesi, mean_rad, area, use_area, the_geom FROM building_radiation_andorra
+
 map:
   center: [1.6, 42.55]
   zoom: 11
