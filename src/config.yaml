@@ -9,8 +9,10 @@ constants:
     OPERATION: [[50, 25], [Infinity, 18]] # €/kWp
   GRANT: 0.4 # 40%
   GRANT_MAX: 20000 # €
-  ENERGY_PRICE: 0.0853 # €/kWh
-  ENERGY_PRICE_INCREASE: 0.015 # 1.5%/year
+  ENERGY:
+    TARIFF_C_BASE: 0.0853 # €/kWh
+    TARIFF_BLUE_BASE: 0.1 # €/kWh
+    PRICE_INCREASE: 0.015 # 1.5%/year
 
 map:
   center: [1.6, 42.55]

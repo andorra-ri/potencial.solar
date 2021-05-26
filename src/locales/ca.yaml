@@ -5,6 +5,7 @@ metric:
   resource: Recurs solar
   installation: Instal·lació
   economics: Econòmic
+  self_supply: Autoconsum
   radiation:
     label: Irradiació
     unit: Wh/m²
@@ -19,6 +20,12 @@ metric:
   energy:
     label: Energia
     unit: MWh/any
+  self_energy:
+    label: Autoconsum
+    unit: MWh/any
+  inject_energy:
+    label: Injecció a xarxa
+    unit: MWh/any
   install_cost:
     label: Inversió
     unit: €
@@ -27,6 +34,9 @@ metric:
     unit: €
   operation_cost:
     label: Cost operació
+    unit: €/any
+  savings:
+    label: Estalvi
     unit: €/any
   profits:
     label: Ingressos

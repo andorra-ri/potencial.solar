@@ -2,12 +2,17 @@ import { useGeoJSON } from '/@/utils/index';
 import { constants } from '/@/config.yaml';
 
 // Averaged energy price across panels' lifespan
-const { ENERGY_PRICE, ENERGY_PRICE_INCREASE, LIFESPAN } = constants;
-export const MEAN_ENERGY_PRICE = [...Array(LIFESPAN - 1)].reduce(acc => {
-	acc.current *= 1 + ENERGY_PRICE_INCREASE;
-	acc.sum += acc.current;
-	return acc;
-}, { sum: ENERGY_PRICE, current: ENERGY_PRICE }).sum / LIFESPAN;
+const getMeanPrice = (basePrice, incrementRatio, lifespan) => (
+	[...Array(lifespan - 1)].reduce(acc => {
+		acc.current *= 1 + incrementRatio;
+		acc.sum += acc.current;
+		return acc;
+	}, { sum: basePrice, current: basePrice }).sum / lifespan
+);
+
+const { ENERGY: { TARIFF_C_BASE, TARIFF_BLUE_BASE, PRICE_INCREASE }, LIFESPAN } = constants;
+export const TARIFF_C = getMeanPrice(TARIFF_C_BASE, PRICE_INCREASE, LIFESPAN);
+export const TARIFF_BLUE = getMeanPrice(TARIFF_BLUE_BASE, PRICE_INCREASE, LIFESPAN);
 
 // Data repository from rooftop layer
 export default async function useDataRepository() {
@@ -41,7 +46,7 @@ export default async function useDataRepository() {
 		const install_cost = costPower * power * 1000;
 		const grant = Math.min(power * Math.min(costPower, COSTS.REF) * GRANT * 1000, GRANT_MAX);
 		const operation_cost = findCost(constants.COSTS.OPERATION, power) * power;
-		const profits = energy * MEAN_ENERGY_PRICE * 1000;
+		const profits = energy * TARIFF_C * 1000;
 		const return_period = (install_cost - grant) / (profits - operation_cost);
 		return { ...properties, install_cost, grant, operation_cost, profits, return_period };
 	});
