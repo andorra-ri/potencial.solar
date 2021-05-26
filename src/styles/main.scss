@@ -1,85 +1,11 @@
+@import
+	'base',
+	'map',
+	'components/popup';
+
 :root {
 	font-size: 16px;
 	color: #323637;
 
 	--map-legend-minwidth: 200px;
 }
-
-#map {
-	height: 100vh;
-}
-
-.mapboxgl-ctrl-legend-pane summary {
-	text-transform: none;
-	font-size: 1.125em;
-}
-
-.mapboxgl-popup {
-	min-width: 275px;
-}
-
-h2 {
-	margin: 0.75rem;
-	font-size: 1.25em;
-	font-weight: bold;
-}
-
-p.not-usable {
-	text-align: center;
-	margin: 1.5rem;
-	opacity: 0.5;
-}
-
-details {
-	margin: 0 0.75rem;
-}
-
-summary {
-	margin: 0.75rem 0 0;
-	text-transform: uppercase;
-	font-size: 0.85em;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.metrics {
-	li {
-		display: flex;
-		white-space: nowrap;
-		margin: 0.25rem 0;
-
-		em {
-			flex: 1;
-			display: flex;
-			align-items: center;
-			opacity: 0.5;
-			margin-right: 0.5rem;
-
-			&::after {
-				content: '';
-				flex: 1;
-				margin-left: 0.5rem;
-				border-top: 1px solid #0002;
-			}
-		}
-
-		strong { font-size: 1.2em; }
-	}
-}
-
-input {
-	margin: 0.5rem 0 0;
-	width: 100%;
-}
-
-small { font-size: 0.75em; }
-
-sub,
-sup {
-	font-size: 75%;
-	line-height: 0;
-	position: relative;
-	vertical-align: baseline;
-}
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
