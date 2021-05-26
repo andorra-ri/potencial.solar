@@ -4,7 +4,7 @@
 			<em>{{ t(`metric.${name}.label`) }}</em>
 			<strong>
 				{{ metric }}
-				<small>{{ t(`metric.${name}.unit`, ' ') }}</small>
+				<small>{{ t(`metric.${name}.unit`) }}</small>
 			</strong>
 		</li>
 	</ul>
