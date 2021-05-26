@@ -4,15 +4,7 @@
 		<section v-if="isUsable">
 			<details v-for="(metrics, group) in { resource, installation }" :key="group" open>
 				<summary>{{ t(`metric.${group}`) }}</summary>
-				<ul class="metrics">
-					<li v-for="(metric, name) in metrics" :key="name">
-						<em>{{ t(`metric.${name}.label`) }}</em>
-						<strong>
-							{{ metric }}
-							<small>{{ t(`metric.${name}.unit`, ' ') }}</small>
-						</strong>
-					</li>
-				</ul>
+				<metrics-list :metrics="metrics" />
 			</details>
 		</section>
 		<p v-else class="not-usable">{{ t('rooftop_not_usable') }}</p>
@@ -22,10 +14,12 @@
 <script>
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import MetricsList from './MetricsList.vue';
 import { useFormat } from '/@/utils/index';
 
 export default {
 	name: 'RoofPopup',
+	components: { MetricsList },
 	props: {
 		to: { type: String, required: true },
 		roof: { type: Object, required: true },
