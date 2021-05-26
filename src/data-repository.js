@@ -22,38 +22,41 @@ export default async function useDataRepository() {
 	const { user, query } = carto;
 	const url = `https://${user}.carto.com/api/v2/sql?q=${query}&api_key=${token}&format=geojson`;
 
-	const response = await fetch(url);
-	const json = await response.json();
+	try {
+		const response = await fetch(url);
+		const json = await response.json();
 
-	// Calculate rooftop variables
-	const { PANEL_AREA, PANEL_POWER, EFFICIENCY } = constants;
-	const rooftops = onProperties(json, properties => {
-		const { use_area: useArea, mean_rad: meanRad } = properties;
-		const panels = Math.floor(useArea / PANEL_AREA);
-		const power = panels * PANEL_POWER;
-		const energy = (meanRad * power * EFFICIENCY) / 1000;
-		return { ...properties, panels, power, energy };
-	});
+		// Calculate rooftop variables
+		const { PANEL_AREA, PANEL_POWER, EFFICIENCY } = constants;
+		const rooftops = onProperties(json, properties => {
+			const { use_area: useArea, mean_rad: meanRad } = properties;
+			const panels = Math.floor(useArea / PANEL_AREA);
+			const power = panels * PANEL_POWER;
+			const energy = (meanRad * power * EFFICIENCY) / 1000;
+			return { ...properties, panels, power, energy };
+		});
 
-	// Group rooftops by CESI and aggregate variables
-	const { COSTS, GRANT, GRANT_MAX } = constants;
-	const sum = values => values.reduce((acc, value) => acc + value, 0);
-	const { mergeByProperty } = useGeoJSON();
-	const mergedRoofs = mergeByProperty(rooftops, 'cesi', sum);
+		// Group rooftops by CESI and aggregate variables
+		const { COSTS, GRANT, GRANT_MAX } = constants;
+		const sum = values => values.reduce((acc, value) => acc + value, 0);
+		const { mergeByProperty } = useGeoJSON();
+		const mergedRoofs = mergeByProperty(rooftops, 'cesi', sum);
 
-	// Calculate building variables
-	/* eslint-disable camelcase */
-	const findCost = (costs, power) => costs.find(([limit]) => power <= limit)[1];
-	const buildings = onProperties(mergedRoofs, properties => {
-		const { power, energy } = properties;
-		const costPower = findCost(COSTS.INSTALL, power);
-		const install_cost = costPower * power * 1000;
-		const grant = Math.min(power * Math.min(costPower, COSTS.REF) * GRANT * 1000, GRANT_MAX);
-		const operation_cost = findCost(constants.COSTS.OPERATION, power) * power;
-		const profits = energy * TARIFF_C * 1000;
-		const return_period = (install_cost - grant) / (profits - operation_cost);
-		return { ...properties, install_cost, grant, operation_cost, profits, return_period };
-	});
+		// Calculate building variables
+		/* eslint-disable camelcase */
+		const findCost = (costs, power) => costs.find(([limit]) => power <= limit)[1];
+		const buildings = onProperties(mergedRoofs, properties => {
+			const { power, energy } = properties;
+			const costPower = findCost(COSTS.INSTALL, power);
+			const install_cost = costPower * power * 1000;
+			const installationGrant = power * Math.min(costPower, COSTS.REF) * GRANT * 1000;
+			const grant = Math.min(installationGrant, GRANT_MAX);
+			const operation_cost = findCost(constants.COSTS.OPERATION, power) * power;
+			const profits = energy * TARIFF_C * 1000;
+			const return_period = (install_cost - grant) / (profits - operation_cost);
+			return { ...properties, install_cost, grant, operation_cost, profits, return_period };
+		});
 
-	return { rooftops, buildings };
+		return { rooftops, buildings };
+	} catch { throw new Error('ERROR_CARTO_LOAD'); }
 }

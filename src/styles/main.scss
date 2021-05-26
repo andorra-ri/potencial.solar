@@ -1,10 +1,12 @@
 @import
 	'base',
 	'map',
-	'components/popup';
+	'components/popup',
+	'components/status';
 
 :root {
 	font-size: 16px;
+	font-family: 'Arial', sans-serif;
 	color: #323637;
 
 	--map-legend-minwidth: 200px;
