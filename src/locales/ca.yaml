@@ -1,0 +1,52 @@
+rooftop_not_usable: Coberta no aprofitable
+building_not_usable: Edifici no aprofitable
+
+status:
+  ERROR_CARTO_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.
+  LOADING_DATA: Carregant dades...
+  LOADING_MAP: Carregant mapa...
+  LOADING_LAYERS: Carregant capes...
+
+metric:
+  resource: Recurs solar
+  installation: Instal·lació
+  economics: Econòmic
+  self_supply: Autoconsum
+  radiation:
+    label: Irradiació
+    unit: Wh/m²
+  area:
+    label: Àrea útil / total
+    unit: m²
+  panels:
+    label: Mòduls
+  power:
+    label: Potència
+    unit: kWp
+  energy:
+    label: Energia
+    unit: MWh/any
+  self_energy:
+    label: Autoconsum
+    unit: MWh/any
+  inject_energy:
+    label: Injecció a xarxa
+    unit: MWh/any
+  install_cost:
+    label: Inversió
+    unit: €
+  grant:
+    label: Subvenció
+    unit: €
+  operation_cost:
+    label: Cost operació
+    unit: €/any
+  savings:
+    label: Estalvi
+    unit: €/any
+  profits:
+    label: Ingressos
+    unit: €/any
+  return_period:
+    label: Període de retorn
+    unit: anys

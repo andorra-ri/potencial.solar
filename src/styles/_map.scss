@@ -1,0 +1,22 @@
+#map {
+	height: 100vh;
+	background: #e8e8e8;
+}
+
+.mapboxgl-ctrl-legend {
+	// Hack to display legend panes in order
+	display: flex;
+	flex-direction: column-reverse;
+
+	&-pane {
+		& + & { // Panes border for proper ordering hack
+			border-top: 0;
+			border-bottom: 1px solid #0001;
+		}
+
+		summary {
+			text-transform: none;
+			font-size: 1.125em;
+		}
+	}
+}
