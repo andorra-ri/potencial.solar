@@ -16,7 +16,7 @@ constants:
 
 carto:
   user: obsa-andorra
-  query: SELECT cesi, mean_rad, area, use_area, the_geom FROM building_radiation_andorra
+  query: SELECT cesi, mean_rad, area, use_area, the_geom FROM building_radiation_andorra WHERE valid=1
 
 map:
   center: [1.6, 42.55]
