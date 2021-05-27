@@ -41,7 +41,7 @@ export default {
 	},
 	setup(props) {
 		const { t } = useI18n();
-		const { round, number } = useFormat('ca');
+		const { number } = useFormat('ca');
 
 		const selfSupplyRatio = ref(0);
 
@@ -54,22 +54,24 @@ export default {
 			energy: number(props.roof.energy, 2),
 		}));
 
+		const selfSupplyEnergy = computed(() => props.roof.energy * selfSupplyRatio.value);
+		const injectionEnergy = computed(() => props.roof.energy * (1 - selfSupplyRatio.value));
 		const selfSupply = computed(() => ({
-			self_energy: round(props.roof.energy * selfSupplyRatio.value, 2),
-			inject_energy: round(props.roof.energy * (1 - selfSupplyRatio.value), 2),
+			self_energy: number(selfSupplyEnergy.value, 2),
+			inject_energy: number(injectionEnergy.value, 2),
 		}));
 
 		const economics = computed(() => {
-			const savings = selfSupply.value.self_energy * TARIFF_BLUE * 1000;
-			const profits = selfSupply.value.inject_energy * TARIFF_C * 1000;
+			const savings = selfSupplyEnergy.value * TARIFF_BLUE * 1000;
+			const profits = injectionEnergy.value * TARIFF_C * 1000;
 			const returnPeriod = (props.roof.install_cost - props.roof.grant)
 				/ (savings + profits - props.roof.operation_cost);
 			return {
-				install_cost: number(props.roof.install_cost),
-				grant: number(props.roof.grant),
-				operation_cost: number(props.roof.operation_cost),
-				savings: number(savings),
-				profits: number(profits),
+				install_cost: number(props.roof.install_cost, 0),
+				grant: number(props.roof.grant, 0),
+				operation_cost: number(props.roof.operation_cost, 0),
+				savings: number(savings, 0),
+				profits: number(profits, 0),
 				return_period: number(returnPeriod),
 			};
 		});

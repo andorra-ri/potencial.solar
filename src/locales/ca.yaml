@@ -10,22 +10,22 @@ status:
 metric:
   resource: Recurs solar
   installation: Instal·lació
-  economics: Econòmic
+  economics: Indicadors econòmics
   self_supply: Autoconsum
   radiation:
-    label: Irradiació
-    unit: Wh/m²
+    label: Irradiació útil mitjana
+    unit: kWh/m²
   area:
     label: Àrea útil / total
     unit: m²
   panels:
-    label: Mòduls
+    label: Nombre de mòduls
     unit: ' '
   power:
-    label: Potència
+    label: Potència instal·lable
     unit: kWp
   energy:
-    label: Energia
+    label: Electricitat generada
     unit: MWh/any
   self_energy:
     label: Autoconsum
@@ -34,19 +34,19 @@ metric:
     label: Injecció a xarxa
     unit: MWh/any
   install_cost:
-    label: Inversió
+    label: Inversió estimada
     unit: €
   grant:
-    label: Subvenció
+    label: Ajut Pla Renova
     unit: €
   operation_cost:
-    label: Cost operació
+    label: Cost d'operació
     unit: €/any
   savings:
-    label: Estalvi
+    label: Estalvi (autoconsum)
     unit: €/any
   profits:
-    label: Ingressos
+    label: Ingressos (injecció a xarxa)
     unit: €/any
   return_period:
     label: Període de retorn
