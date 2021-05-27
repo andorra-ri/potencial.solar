@@ -20,6 +20,10 @@
 				<summary>{{ t('metric.economics') }}</summary>
 				<metrics-list :metrics="economics" />
 			</details>
+			<details open>
+				<summary>{{ t('metric.environment') }}</summary>
+				<metrics-list :metrics="environment" />
+			</details>
 		</section>
 		<p v-else class="not-usable">{{ t('building_not_usable') }}</p>
 	</teleport>
@@ -76,7 +80,12 @@ export default {
 			};
 		});
 
-		return { t, isUsable, installation, selfSupplyRatio, selfSupply, economics };
+		const environment = computed(() => ({
+			emission_savings: number(props.roof.emissions, 2),
+			homes_eq: number(props.roof.homes_eq, 0),
+		}));
+
+		return { t, isUsable, installation, selfSupplyRatio, selfSupply, economics, environment };
 	},
 };
 </script>

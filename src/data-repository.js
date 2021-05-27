@@ -37,7 +37,7 @@ export default async function useDataRepository() {
 		});
 
 		// Group rooftops by CESI and aggregate variables
-		const { COSTS, GRANT, GRANT_MAX } = constants;
+		const { COSTS, GRANT, GRANT_MAX, EMISSIONS_FACTOR, HOME_CONSUMPTION } = constants;
 		const sum = values => values.reduce((acc, value) => acc + value, 0);
 		const { mergeByProperty } = useGeoJSON();
 		const mergedRoofs = mergeByProperty(rooftops, 'cesi', sum);
@@ -54,7 +54,18 @@ export default async function useDataRepository() {
 			const operation_cost = findCost(constants.COSTS.OPERATION, power) * power;
 			const profits = energy * TARIFF_C * 1000;
 			const return_period = (install_cost - grant) / (profits - operation_cost);
-			return { ...properties, install_cost, grant, operation_cost, profits, return_period };
+			const emissions = (energy * EMISSIONS_FACTOR) / 1000;
+			const homes_eq = (energy * 1000) / HOME_CONSUMPTION;
+			return {
+				...properties,
+				install_cost,
+				grant,
+				operation_cost,
+				profits,
+				return_period,
+				emissions,
+				homes_eq,
+			};
 		});
 
 		return { rooftops, buildings };

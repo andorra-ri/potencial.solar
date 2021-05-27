@@ -13,6 +13,8 @@ constants:
     TARIFF_C_BASE: 0.0853 # €/kWh
     TARIFF_BLUE_BASE: 0.1 # €/kWh
     PRICE_INCREASE: 0.015 # 1.5%/year
+  EMISSIONS_FACTOR: 124 # gCO2/kWh
+  HOME_CONSUMPTION: 5768 # kWh/any
 
 carto:
   user: obsa-andorra

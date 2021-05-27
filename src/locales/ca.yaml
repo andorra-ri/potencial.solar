@@ -12,6 +12,7 @@ metric:
   installation: Instal·lació
   economics: Indicadors econòmics
   self_supply: Autoconsum
+  environment: Indicadors ambientals
   radiation:
     label: Irradiació útil mitjana
     unit: kWh/m²
@@ -51,3 +52,9 @@ metric:
   return_period:
     label: Període de retorn
     unit: anys
+  emission_savings:
+    label: Estalvi d'emissions
+    unit: tCO₂/any
+  homes_eq:
+    label: Consum equivalent
+    unit: habitatges
