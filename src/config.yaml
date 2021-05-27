@@ -16,7 +16,7 @@ constants:
 
 carto:
   user: obsa-andorra
-  query: SELECT cesi, mean_rad, area, use_area, the_geom FROM building_radiation_andorra
+  query: SELECT cesi, mean_rad, area, use_area, the_geom FROM building_radiation_andorra WHERE valid=1
 
 map:
   center: [1.6, 42.55]
@@ -44,14 +44,14 @@ layers:
         19, '#f0f0f0',
       ]
     metadata:
-      name: 'Irradiació per coberta'
+      name: 'Irradiació útil per coberta'
       labels:
         # Hack to display appropriate legend tags
-        1199: 1200 Wh/m²
+        1199: 1200 kWh/m²
         1200: ' '
         1400: ' '
         1600: ' '
-        1800: 1800Wh/m²
+        1800: 1800 kWh/m²
 
   buildings:
     name: Buildings
@@ -66,10 +66,10 @@ layers:
           ['all', ['>', ['get', 'return_period'], 8], ['<=', ['get', 'return_period'], 10]], 'AVG',
           'BAD',
         ],
-        'BAD', '#f65',
-        'AVG', '#f3e79b',
-        'GOOD', '#8c8',
         'VERY_GOOD', '#497a49',
+        'GOOD', '#8c8',
+        'AVG', '#f3e79b',
+        'BAD', '#f65',
         '#e0e0e0'
       ]
       fill-outline-color: [
@@ -79,7 +79,7 @@ layers:
         19, '#f0f0f0',
       ]
     metadata:
-      name: 'Rendiment per edifici'
+      name: Potencial d'aprofitament FV
       labels:
         BAD: Baix
         AVG: Moderat
