@@ -47,11 +47,11 @@ layers:
       name: 'Irradiació útil per coberta'
       labels:
         # Hack to display appropriate legend tags
-        1199: 1200 Wh/m²
+        1199: 1200 kWh/m²
         1200: ' '
         1400: ' '
         1600: ' '
-        1800: 1800 Wh/m²
+        1800: 1800 kWh/m²
 
   buildings:
     name: Buildings
