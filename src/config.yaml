@@ -43,7 +43,7 @@ layers:
         'interpolate', ['linear'],
         ['zoom'],
         12, transparent,
-        19, '#f0f0f0',
+        19, '#666',
       ]
     metadata:
       name: 'Irradiació útil per coberta'
@@ -71,14 +71,14 @@ layers:
         'VERY_GOOD', '#497a49',
         'GOOD', '#8c8',
         'AVG', '#f3e79b',
-        'BAD', '#f65',
+        'BAD', '#fbbb62',
         '#e0e0e0'
       ]
       fill-outline-color: [
         'interpolate', ['linear'],
         ['zoom'],
         12, transparent,
-        19, '#f0f0f0',
+        19, '#555',
       ]
     metadata:
       name: Potencial d'aprofitament FV
