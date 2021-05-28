@@ -35,8 +35,8 @@ export default {
 
 				status.message = 'LOADING_MAP';
 				const map = await useMap('map', { ...config.map, accessToken });
-				const { addControl, addNavigation } = useControls(map);
-				addNavigation();
+				const { addControl, addFullscreen } = useControls(map);
+				addFullscreen();
 				addControl('legend', 'top-left', new LegendControl({ toggler: true }));
 
 				// Hide default style buildings to avoid confusion
