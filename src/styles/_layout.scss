@@ -41,3 +41,15 @@ footer {
 	padding: 3em 1em;
 	text-align: center;
 }
+
+.columns {
+	display: flex;
+	margin: 7rem 0;
+
+	.column {
+		flex: 1;
+		margin: 0 2rem;
+
+		&--2 { flex: 2; }
+	}
+}

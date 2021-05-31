@@ -9,6 +9,23 @@
 		</header>
 		<h1>{{ t('tagline') }}</h1>
 		<solar-map />
+		<section id="project" class="columns">
+			<div class="column column--2">
+				<p>{{ t('project.context') }}</p>
+				<p>
+					<span class="logo">potencial.s<span class="symbol">o</span>lar</span>
+					{{ t('project.mission') }}
+				</p>
+			</div>
+			<div class="column">
+				<h2>{{ t('project.docs') }}</h2>
+				<p>
+					<a href="/@/assets/docs/informe_metodologia.pdf" target="blank">
+						<img src="/@/assets/file-text.svg" class="icon"> Informe metodològic
+					</a>
+				</p>
+			</div>
+		</section>
 		<footer>
 			<a href="http://www.obsa.ad" target="blank" class="obsa">
 				<img src="/@/assets/obsa.png">

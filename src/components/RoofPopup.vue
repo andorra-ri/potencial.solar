@@ -1,6 +1,6 @@
 <template>
 	<teleport :to="`#${to}`">
-		<h2>Edifici CESI {{ roof.cesi }}</h2>
+		<h3>Edifici CESI {{ roof.cesi }}</h3>
 		<section v-if="isUsable">
 			<details v-for="(metrics, group) in { resource, installation }" :key="group" open>
 				<summary>{{ t(`metric.${group}`) }}</summary>
