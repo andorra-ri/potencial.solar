@@ -1,0 +1,55 @@
+html { scroll-behavior: smooth; }
+
+#app {
+	height: 100vh;
+	text-align: center;
+	line-height: 1.2;
+	font-weight: 300;
+	background: #fff;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1024px;
+	text-align: left;
+}
+
+.topbar {
+	display: flex;
+	align-items: center;
+	background: #fffffff8;
+	position: sticky;
+	top: 0;
+	padding: 1.25em 1em;
+	z-index: 3;
+
+	.logo { font-size: 1.5em; }
+
+	.nav {
+		display: flex;
+		margin-left: auto;
+
+		a {
+			display: block;
+			margin: 0 1em;
+		}
+	}
+}
+
+footer {
+	font-size: 0.75em;
+	padding: 3em 1em;
+	text-align: center;
+}
+
+.columns {
+	display: flex;
+	margin: 7rem 0;
+
+	.column {
+		flex: 1;
+		margin: 0 2rem;
+
+		&--2 { flex: 2; }
+	}
+}

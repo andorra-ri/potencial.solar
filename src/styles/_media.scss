@@ -1,0 +1,54 @@
+img {
+	max-width: 100%;
+	pointer-events: none;
+}
+
+.icon {
+	height: 1.25em;
+	margin-right: 0.25em;
+	vertical-align: middle;
+}
+
+.logo {
+	font-weight: bold;
+	z-index: 1;
+
+	.symbol {
+		display: inline-block;
+		background: #fbbb62;
+		vertical-align: bottom;
+		margin: 0 0.05em 0.2em;
+		height: 0.65em;
+		width: 0.65em;
+		border-radius: 50%;
+		text-indent: -9999px;
+		position: relative;
+		box-shadow: 0 0 0 0.3em #fbbb6266;
+		z-index: -1;
+	}
+}
+
+.obsa {
+	display: inline-flex;
+	align-items: center;
+	margin: 0 auto;
+
+	img {
+		height: 3rem;
+		width: 3rem;
+		filter: contrast(0) saturate(0) brightness(1.5);
+		transition: all 0.5s ease;
+	}
+
+	&:hover img { filter: none; }
+
+	&::after,
+	&::before {
+		content: '';
+		display: block;
+		height: 1px;
+		width: 5vw;
+		background: #0002;
+		margin: 0 1em;
+	}
+}
