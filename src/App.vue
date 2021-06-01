@@ -20,7 +20,7 @@
 			<div class="column">
 				<h2>{{ t('project.docs') }}</h2>
 				<p>
-					<a href="/@/assets/docs/informe_metodologia.pdf" target="blank">
+					<a href="/docs/informe_metodologia.pdf" target="blank">
 						<img src="/@/assets/file-text.svg" class="icon"> Informe metodològic
 					</a>
 				</p>
