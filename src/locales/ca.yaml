@@ -13,7 +13,7 @@ rooftop_not_usable: Coberta no aprofitable
 building_not_usable: Edifici no aprofitable
 
 alert:
-  meteo_conditions: Els resultats d'aquesta zona poden variar notablement degut a les condicions meteorològiques locals.
+  meteo_conditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
 
 status:
   ERROR_CARTO_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.

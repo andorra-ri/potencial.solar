@@ -18,6 +18,13 @@ import config from '/@/config.yaml';
 
 const { VITE_MAPBOX_TOKEN: accessToken } = import.meta.env;
 
+// Only show markers on zoom > 14
+const zoomVisibleMarker = (map, marker) => {
+	const zoom = map.getZoom();
+	if (zoom < 14) marker.remove();
+	else marker.addTo(map);
+};
+
 export default {
 	name: 'SolarMap',
 	components: { RoofPopup, BuildingPopup },
@@ -48,14 +55,16 @@ export default {
 					closeOnClick: false,
 				});
 
-				config.markers.forEach(marker => {
+				config.markers.forEach(({ type, coordinates, text }) => {
 					const element = document.createElement('div');
-					element.classList.add(`marker-${marker.type}`);
-					useMarker(map, {
+					element.classList.add(`marker-${type}`);
+					const { marker } = useMarker(map, {
 						element,
-						coordinates: marker.coordinates,
-						popup: usePopup({ content: t(`${marker.type}.${marker.text}`) }),
+						coordinates,
+						popup: usePopup({ content: t(`${type}.${text}`) }),
 					});
+					zoomVisibleMarker(map, marker);
+					map.on('zoom', () => zoomVisibleMarker(map, marker));
 				});
 
 				useGeoJSON(map, {
