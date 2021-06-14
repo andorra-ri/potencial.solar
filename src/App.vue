@@ -16,12 +16,25 @@
 					<span class="logo">potencial.s<span class="symbol">o</span>lar</span>
 					{{ t('project.mission') }}
 				</p>
+				<p>{{ t('project.warn') }}</p>
 			</div>
-			<div class="column">
+			<div class="column iconed-list">
 				<h2>{{ t('project.docs') }}</h2>
 				<p>
 					<a href="/docs/informe_metodologia.pdf" target="blank">
 						<img src="/@/assets/file-text.svg" class="icon"> Informe metodològic
+					</a>
+				</p>
+				<p>
+					<a href="https://www.mediambient.ad/renova" target="blank">
+						<img src="/@/assets/link.svg" class="icon">
+						Programa Renova
+					</a>
+				</p>
+				<p>
+					<a href="https://www.bopa.ad/bopa/032069/Pagines/GR20200515_10_21_59.aspx" target="blank">
+						<img src="/@/assets/link.svg" class="icon">
+						Reglament de la generació d’energia elèctrica
 					</a>
 				</p>
 			</div>
