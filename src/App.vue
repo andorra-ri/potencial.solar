@@ -9,7 +9,7 @@
 		</header>
 		<h1>{{ t('tagline') }}</h1>
 		<solar-map />
-		<section id="project" class="columns">
+		<section id="project" class="columns scroll-to">
 			<div class="column column--2">
 				<p>{{ t('project.context') }}</p>
 				<p>

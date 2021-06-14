@@ -1,5 +1,5 @@
 <template>
-	<div id="map">
+	<div id="map" class="scroll-to">
 		<roof-popup v-if="activeRoof" :roof="activeRoof" to="metrics-popup" />
 		<building-popup v-if="activeBuilding" :roof="activeBuilding" to="metrics-popup" />
 		<div v-if="status.type" :class="status.type">{{ t(`status.${status.message}`) }}</div>
