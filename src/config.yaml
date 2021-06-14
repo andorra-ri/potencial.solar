@@ -23,6 +23,8 @@ carto:
 map:
   center: [1.6, 42.55]
   zoom: 11
+  minZoom: 10
+  maxBounds: [[1.261305, 42.254118], [1.902439, 42.754004]]
   style: mapbox://styles/mapbox/light-v9
 
 layers:
