@@ -27,6 +27,12 @@ map:
   maxBounds: [[1.261305, 42.254118], [1.902439, 42.754004]]
   style: mapbox://styles/mapbox/light-v9
 
+markers:
+  - name: pas_de_la_casa
+    type: alert
+    coordinates: [1.734892, 42.541648]
+    text: meteo_conditions
+
 layers:
   roofs:
     name: Roofs

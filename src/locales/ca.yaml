@@ -11,6 +11,9 @@ project:
 rooftop_not_usable: Coberta no aprofitable
 building_not_usable: Edifici no aprofitable
 
+alert:
+  meteo_conditions: Els resultats d'aquesta zona poden variar notablement degut a les condicions meteorològiques locals.
+
 status:
   ERROR_CARTO_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.
   LOADING_DATA: Carregant dades...

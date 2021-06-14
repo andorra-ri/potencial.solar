@@ -9,7 +9,7 @@
 <script>
 import { ref, reactive, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useMap, useControls, useGeoJSON, usePopup } from 'mapbox-composition';
+import { useMap, useControls, useGeoJSON, useMarker, usePopup } from 'mapbox-composition';
 import LegendControl from 'mapboxgl-legend';
 import useDataRepository from '/@/data-repository';
 import RoofPopup from '/@/components/RoofPopup.vue';
@@ -46,6 +46,16 @@ export default {
 				const popup = usePopup(map, {
 					name: 'metrics-popup',
 					closeOnClick: false,
+				});
+
+				config.markers.forEach(marker => {
+					const element = document.createElement('div');
+					element.classList.add(`marker-${marker.type}`);
+					useMarker(map, {
+						element,
+						coordinates: marker.coordinates,
+						popup: usePopup({ content: t(`${marker.type}.${marker.text}`) }),
+					});
 				});
 
 				useGeoJSON(map, {
