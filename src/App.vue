@@ -27,9 +27,21 @@
 			</div>
 		</section>
 		<footer>
-			<a href="http://www.obsa.ad" target="blank" class="obsa">
-				<img src="/@/assets/obsa.png">
-			</a>
+			<div class="logos">
+				<a
+					href="http://www.ari.ad"
+					target="blank"
+					title="Andorra Recerca + Innovació">
+					<img src="/logo_ari.png" alt="Andorra Recerca + Innovació">
+				</a>
+				+
+				<a
+					href="https://www.mediambient.ad/energia"
+					target="blank"
+					title="Oficina de l'Energia i el Canvi Climàtic">
+					<img src="/logo_govern_andorra.png" class="logo-govern" alt="OECC">
+				</a>
+			</div>
 		</footer>
 	</div>
 </template>
