@@ -1,82 +1,74 @@
 <template>
-	<div id="map" />
-	<roof-popup v-if="activeRoof" :roof="activeRoof" to="metrics-popup" />
-	<building-popup v-if="activeBuilding" :roof="activeBuilding" to="metrics-popup" />
-	<div v-if="status.type" :class="status.type">{{ t(`status.${status.message}`) }}</div>
+	<div class="container">
+		<header class="topbar">
+			<span class="logo">potencial.s<span class="symbol">o</span>lar</span>
+			<ul class="nav">
+				<li><a href="#map">{{ t('nav.map') }}</a></li>
+				<li><a href="#project">{{ t('nav.project') }}</a></li>
+			</ul>
+		</header>
+		<h1>{{ t('tagline') }}</h1>
+		<solar-map />
+		<section id="project" class="columns scroll-to">
+			<div class="column column--2">
+				<p>{{ t('project.context') }}</p>
+				<p>
+					<span class="logo">potencial.s<span class="symbol">o</span>lar</span>
+					{{ t('project.mission') }}
+				</p>
+				<p>{{ t('project.warn') }}</p>
+			</div>
+			<div class="column iconed-list">
+				<h2>{{ t('project.docs') }}</h2>
+				<p>
+					<a href="/docs/informe_metodologia.pdf" target="blank">
+						<img src="/@/assets/file-text.svg" class="icon"> Informe metodològic
+					</a>
+				</p>
+				<p>
+					<a href="https://www.mediambient.ad/renova" target="blank">
+						<img src="/@/assets/link.svg" class="icon">
+						Programa Renova
+					</a>
+				</p>
+				<p>
+					<a href="https://www.bopa.ad/bopa/032069/Pagines/GR20200515_10_21_59.aspx" target="blank">
+						<img src="/@/assets/link.svg" class="icon">
+						Reglament de la generació d’energia elèctrica
+					</a>
+				</p>
+			</div>
+		</section>
+		<footer>
+			<div class="logos">
+				<a
+					href="http://www.ari.ad"
+					target="blank"
+					title="Andorra Recerca + Innovació">
+					<img src="/logo_ari.png" alt="Andorra Recerca + Innovació">
+				</a>
+				+
+				<a
+					href="https://www.mediambient.ad/energia"
+					target="blank"
+					title="Oficina de l'Energia i el Canvi Climàtic">
+					<img src="/logo_govern_andorra.png" class="logo-govern" alt="OECC">
+				</a>
+			</div>
+		</footer>
+	</div>
 </template>
 
 <script>
-import { ref, reactive, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useMap, useControls, useGeoJSON, usePopup } from 'mapbox-composition';
-import LegendControl from 'mapboxgl-legend';
-import useDataRepository from '/@/data-repository';
-import RoofPopup from '/@/components/RoofPopup.vue';
-import BuildingPopup from '/@/components/BuildingPopup.vue';
-import config from './config.yaml';
-
-const { VITE_MAPBOX_TOKEN: accessToken } = import.meta.env;
+import SolarMap from '/@/components/SolarMap.vue';
 
 export default {
 	name: 'App',
-	components: { RoofPopup, BuildingPopup },
+	components: { SolarMap },
 	setup() {
 		const { t } = useI18n();
-		const status = reactive({ type: undefined, message: undefined });
-		const activeRoof = ref(undefined);
-		const activeBuilding = ref(undefined);
-
-		onMounted(async () => {
-			try {
-				status.type = 'waiting';
-				status.message = 'LOADING_DATA';
-				const { rooftops, buildings } = await useDataRepository();
-
-				status.message = 'LOADING_MAP';
-				const map = await useMap('map', { ...config.map, accessToken });
-				const { addControl, addNavigation } = useControls(map);
-				addNavigation();
-				addControl('legend', 'top-left', new LegendControl({ toggler: true }));
-
-				// Hide default style buildings to avoid confusion
-				map.setLayoutProperty('building', 'visibility', 'none');
-
-				status.message = 'LOADING_LAYERS';
-				const popup = usePopup(map, {
-					name: 'metrics-popup',
-					closeOnClick: false,
-				});
-
-				useGeoJSON(map, {
-					name: 'roofs',
-					source: rooftops,
-					layers: [config.layers.roofs],
-					onClick: ({ lngLat, features }) => {
-						popup.setLocation(lngLat);
-						activeBuilding.value = null;
-						activeRoof.value = features[0].properties;
-					},
-				});
-
-				useGeoJSON(map, {
-					name: 'buildings',
-					source: buildings,
-					layers: [config.layers.buildings],
-					onClick: ({ lngLat, features }) => {
-						popup.setLocation(lngLat);
-						activeRoof.value = null;
-						activeBuilding.value = features[0].properties;
-					},
-				});
-
-				status.type = null;
-			} catch (error) {
-				status.type = 'error';
-				status.message = error.message;
-			}
-		});
-
-		return { t, status, activeRoof, activeBuilding };
+		return { t };
 	},
 };
 </script>

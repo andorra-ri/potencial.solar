@@ -13,6 +13,8 @@ constants:
     TARIFF_C_BASE: 0.0853 # €/kWh
     TARIFF_BLUE_BASE: 0.1 # €/kWh
     PRICE_INCREASE: 0.015 # 1.5%/year
+  EMISSIONS_FACTOR: 124 # gCO2/kWh
+  HOME_CONSUMPTION: 5768 # kWh/any
 
 carto:
   user: obsa-andorra
@@ -21,7 +23,15 @@ carto:
 map:
   center: [1.6, 42.55]
   zoom: 11
+  minZoom: 10
+  maxBounds: [[1.261305, 42.254118], [1.902439, 42.754004]]
   style: mapbox://styles/mapbox/light-v9
+
+markers:
+  - name: pas_de_la_casa
+    type: alert
+    coordinates: [1.734892, 42.541648]
+    text: meteo_conditions
 
 layers:
   roofs:
@@ -41,7 +51,7 @@ layers:
         'interpolate', ['linear'],
         ['zoom'],
         12, transparent,
-        19, '#f0f0f0',
+        19, '#666',
       ]
     metadata:
       name: 'Irradiació útil per coberta'
@@ -67,16 +77,16 @@ layers:
           'BAD',
         ],
         'VERY_GOOD', '#497a49',
-        'GOOD', '#8c8',
-        'AVG', '#f3e79b',
-        'BAD', '#f65',
+        'GOOD', '#98be68',
+        'AVG', '#edeac2',
+        'BAD', '#d6bd8d',
         '#e0e0e0'
       ]
       fill-outline-color: [
         'interpolate', ['linear'],
         ['zoom'],
         12, transparent,
-        19, '#f0f0f0',
+        19, '#555',
       ]
     metadata:
       name: Potencial d'aprofitament FV
@@ -85,3 +95,4 @@ layers:
         AVG: Moderat
         GOOD: Bo
         VERY_GOOD: Molt bo
+        other: No aprofitable

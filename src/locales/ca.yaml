@@ -1,5 +1,19 @@
+tagline: Coneix el potencial solar de les cobertes dels edificis d'Andorra
+nav:
+  map: Mapa
+  project: Projecte
+
+project:
+  context: L'energia solar fotovoltaica ha demostrat tenir la capacitat de convertir àrees amb usos eminentment residencials i comercials en pols de generació energètica local. A finals de l'any 2020, Andorra disposava de 55 instal·lacions d'energia fotovoltaica connectada a la xarxa amb una potència instal·lada de 1522 kWp. Tot i que el creixement dels darrers anys ha estat important, el potencial per explotar encara és molt gran.
+  mission: proporciona informació orientativa sobre el potencial energètic, la rendibilitat econòmica i els beneficis mediambientals d’hipotètiques instal·lacions d’energia solar fotovoltaica en les cobertes dels edificis del Principat d'Andorra.
+  warn: El potencial fotovoltaic de les cobertes s'ha estimat a través d'una metodologia a gran escala. En aquest sentit, els resultats presentats no són substitut d'un anàlisi tècnic específic realitzat per una enginyeria, sinó que pretenen ajudar a identificar zones i cobertes potencialment interessants. Us animem a llegir l'informe metodològic per conèixer més detall de la metodologia implementada, així com de les seves limitacions.
+  docs: Documents de referència
+
 rooftop_not_usable: Coberta no aprofitable
 building_not_usable: Edifici no aprofitable
+
+alert:
+  meteo_conditions: Els resultats d'aquesta zona poden variar notablement degut a les condicions meteorològiques locals.
 
 status:
   ERROR_CARTO_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.
@@ -12,6 +26,7 @@ metric:
   installation: Instal·lació
   economics: Indicadors econòmics
   self_supply: Autoconsum
+  environment: Indicadors ambientals
   radiation:
     label: Irradiació útil mitjana
     unit: kWh/m²
@@ -51,3 +66,9 @@ metric:
   return_period:
     label: Període de retorn
     unit: anys
+  emission_savings:
+    label: Estalvi d'emissions
+    unit: tCO₂/any
+  homes_eq:
+    label: Consum equivalent
+    unit: habitatges
