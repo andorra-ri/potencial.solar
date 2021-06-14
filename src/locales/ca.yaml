@@ -4,12 +4,16 @@ nav:
   project: Projecte
 
 project:
-  context: La situació energètica d'Andorra es caracteritza per una dependència gairebé total de l'exterior. En el cas de l'electricitat, només el 15% es genera de manera autòctona, gairebé integrament a partir d'energia hidroelèctrica. L'energia solar ha demostrat tenir la capacitat de convertir àrees amb usos eminentment residencials i comercials en punts de generació energètica local, contribuint així a la implantació d'una tecnologia econòmicament rendible i més respectuosa amb el medi ambient.
-  mission: proporciona els resultats de simulacions i càlculs orientatius sobre el potencial energètic, la rendibilitat econòmica i els beneficis mediambientals d’hipotètiques instal·lacions d’energia solar en les cobertes dels edificis del Principat d'Andorra.
+  context: L'energia solar fotovoltaica ha demostrat tenir la capacitat de convertir àrees amb usos eminentment residencials i comercials en pols de generació energètica local. A finals de l'any 2020, Andorra disposava de 55 instal·lacions d'energia fotovoltaica connectada a la xarxa amb una potència instal·lada de 1522 kWp. Tot i que el creixement dels darrers anys ha estat important, el potencial per explotar encara és molt gran.
+  mission: proporciona informació orientativa sobre el potencial energètic, la rendibilitat econòmica i els beneficis mediambientals d’hipotètiques instal·lacions d’energia solar fotovoltaica en les cobertes dels edificis del Principat d'Andorra.
+  warn: El potencial fotovoltaic de les cobertes s'ha estimat a través d'una metodologia a gran escala. En aquest sentit, els resultats presentats no són substitut d'un anàlisi tècnic específic realitzat per una enginyeria, sinó que pretenen ajudar a identificar zones i cobertes potencialment interessants. Us animem a llegir l'informe metodològic per conèixer més detall de la metodologia implementada, així com de les seves limitacions.
   docs: Documents de referència
 
 rooftop_not_usable: Coberta no aprofitable
 building_not_usable: Edifici no aprofitable
+
+alert:
+  meteo_conditions: Els resultats d'aquesta zona poden variar notablement degut a les condicions meteorològiques locals.
 
 status:
   ERROR_CARTO_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.

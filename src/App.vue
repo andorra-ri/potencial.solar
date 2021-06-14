@@ -9,27 +9,52 @@
 		</header>
 		<h1>{{ t('tagline') }}</h1>
 		<solar-map />
-		<section id="project" class="columns">
+		<section id="project" class="columns scroll-to">
 			<div class="column column--2">
 				<p>{{ t('project.context') }}</p>
 				<p>
 					<span class="logo">potencial.s<span class="symbol">o</span>lar</span>
 					{{ t('project.mission') }}
 				</p>
+				<p>{{ t('project.warn') }}</p>
 			</div>
-			<div class="column">
+			<div class="column iconed-list">
 				<h2>{{ t('project.docs') }}</h2>
 				<p>
 					<a href="/docs/informe_metodologia.pdf" target="blank">
 						<img src="/@/assets/file-text.svg" class="icon"> Informe metodològic
 					</a>
 				</p>
+				<p>
+					<a href="https://www.mediambient.ad/renova" target="blank">
+						<img src="/@/assets/link.svg" class="icon">
+						Programa Renova
+					</a>
+				</p>
+				<p>
+					<a href="https://www.bopa.ad/bopa/032069/Pagines/GR20200515_10_21_59.aspx" target="blank">
+						<img src="/@/assets/link.svg" class="icon">
+						Reglament de la generació d’energia elèctrica
+					</a>
+				</p>
 			</div>
 		</section>
 		<footer>
-			<a href="http://www.obsa.ad" target="blank" class="obsa">
-				<img src="/@/assets/obsa.png">
-			</a>
+			<div class="logos">
+				<a
+					href="http://www.ari.ad"
+					target="blank"
+					title="Andorra Recerca + Innovació">
+					<img src="/logo_ari.png" alt="Andorra Recerca + Innovació">
+				</a>
+				+
+				<a
+					href="https://www.mediambient.ad/energia"
+					target="blank"
+					title="Oficina de l'Energia i el Canvi Climàtic">
+					<img src="/logo_govern_andorra.png" class="logo-govern" alt="OECC">
+				</a>
+			</div>
 		</footer>
 	</div>
 </template>

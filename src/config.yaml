@@ -23,7 +23,15 @@ carto:
 map:
   center: [1.6, 42.55]
   zoom: 11
+  minZoom: 10
+  maxBounds: [[1.261305, 42.254118], [1.902439, 42.754004]]
   style: mapbox://styles/mapbox/light-v9
+
+markers:
+  - name: pas_de_la_casa
+    type: alert
+    coordinates: [1.734892, 42.541648]
+    text: meteo_conditions
 
 layers:
   roofs:
@@ -69,9 +77,9 @@ layers:
           'BAD',
         ],
         'VERY_GOOD', '#497a49',
-        'GOOD', '#8c8',
-        'AVG', '#f3e79b',
-        'BAD', '#fbbb62',
+        'GOOD', '#98be68',
+        'AVG', '#edeac2',
+        'BAD', '#d6bd8d',
         '#e0e0e0'
       ]
       fill-outline-color: [

@@ -36,6 +36,8 @@ html { scroll-behavior: smooth; }
 	}
 }
 
+.scroll-to { scroll-margin-top: 5rem; }
+
 footer {
 	font-size: 0.75em;
 	padding: 3em 1em;
@@ -51,5 +53,15 @@ footer {
 		margin: 0 2rem;
 
 		&--2 { flex: 2; }
+	}
+}
+
+.iconed-list {
+	a { display: inline-flex; }
+
+	img {
+		margin-right: 0.5em;
+		opacity: 0.5;
+		height: 1em;
 	}
 }

@@ -28,19 +28,10 @@ img {
 	}
 }
 
-.obsa {
+.logos {
 	display: inline-flex;
 	align-items: center;
-	margin: 0 auto;
-
-	img {
-		height: 3rem;
-		width: 3rem;
-		filter: contrast(0) saturate(0) brightness(1.5);
-		transition: all 0.5s ease;
-	}
-
-	&:hover img { filter: none; }
+	color: #0004;
 
 	&::after,
 	&::before {
@@ -51,4 +42,14 @@ img {
 		background: #0002;
 		margin: 0 1em;
 	}
+
+	a {
+		display: inline-flex;
+		align-items: center;
+		margin: 0 1em;
+
+		img { height: 2rem; }
+	}
+
+	.logo-govern { height: 2.5rem; } // Fix Govern logo styling requirements
 }
