@@ -51,7 +51,7 @@
 				<a
 					href="https://www.mediambient.ad/energia"
 					target="blank"
-					title="Oficina de l'Energia i el Canvi Climàtic">
+					title="Oficina de l'Energia i del Canvi Climàtic">
 					<img src="/logo_govern_andorra.png" class="logo-govern" alt="OECC">
 				</a>
 			</div>
