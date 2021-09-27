@@ -15,6 +15,9 @@ building_not_usable: Edifici no aprofitable
 alert:
   meteo_conditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
 
+button:
+  calculate_co2: Calcula les teves emissions de CO₂
+
 status:
   ERROR_CARTO_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.
   LOADING_DATA: Carregant dades...

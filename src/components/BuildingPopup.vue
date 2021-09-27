@@ -23,6 +23,12 @@
 			<details open>
 				<summary>{{ t('metric.environment') }}</summary>
 				<metrics-list :metrics="environment" />
+				<a
+					href="https://calculadoraco2.mediambient.ad/"
+					target="blank"
+					class="btn">
+					{{ t('button.calculate_co2') }}
+				</a>
 			</details>
 		</section>
 		<p v-else class="not-usable">{{ t('building_not_usable') }}</p>
