@@ -44,7 +44,13 @@ export default {
 				const map = await useMap('map', { ...config.map, accessToken });
 				const { addControl, addFullscreen } = useControls(map);
 				addFullscreen();
-				addControl('legend', 'top-left', new LegendControl({ toggler: true }));
+				addControl('legend', 'top-left', new LegendControl({
+					toggler: true,
+					layers: {
+						Roofs: ['fill-color'],
+						Buildings: ['fill-color'],
+					},
+				}));
 
 				// Hide default style buildings to avoid confusion
 				map.setLayoutProperty('building', 'visibility', 'none');

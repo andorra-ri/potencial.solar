@@ -89,7 +89,7 @@ layers:
         19, '#555',
       ]
     metadata:
-      name: Potencial d'aprofitament FV
+      name: Potencial d'aprofitament Fotovoltaic
       labels:
         BAD: Baix
         AVG: Moderat

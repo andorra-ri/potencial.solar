@@ -4,6 +4,7 @@ import App from './App.vue';
 
 import 'reset-css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import 'mapboxgl-legend/dist/style.css';
 import './styles/main.scss';
 
 const app = createApp(App);
