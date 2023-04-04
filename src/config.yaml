@@ -8,10 +8,10 @@ constants:
     INSTALL: [[2, 1.50], [6, 1.3], [20, 1.15], [50, 1.10], [Infinity, 1]] # €/kW
     OPERATION: [[50, 25], [Infinity, 18]] # €/kWp
   GRANT: 0.4 # 40%
-  GRANT_MAX: 20000 # €
+  GRANT_MAX: 8000 # €
   ENERGY:
-    TARIFF_C_BASE: 0.0853 # €/kWh
-    TARIFF_BLUE_BASE: 0.1 # €/kWh
+    TARIFF_C_BASE: 0.1104 # €/kWh
+    TARIFF_BLUE_BASE: 0.153 # €/kWh
     PRICE_INCREASE: 0.015 # 1.5%/year
   EMISSIONS_FACTOR: 124 # gCO2/kWh
   HOME_CONSUMPTION: 5768 # kWh/any
