@@ -45,14 +45,12 @@ layers:
         1200, '#f3e79b',
         1400, '#f8a07e',
         1600, '#ce6693',
-        1800, '#5c53a5',
-      ]
+        1800, '#5c53a5']
       fill-outline-color: [
         'interpolate', ['linear'],
         ['zoom'],
         12, transparent,
-        19, '#666',
-      ]
+        19, '#666']
     metadata:
       name: 'Irradiació útil per coberta'
       labels:
@@ -74,20 +72,17 @@ layers:
           ['<=', ['get', 'return_period'], 5.5], 'VERY_GOOD',
           ['all', ['>', ['get', 'return_period'], 5.5], ['<=', ['get', 'return_period'], 7]], 'GOOD',
           ['all', ['>', ['get', 'return_period'], 7], ['<=', ['get', 'return_period'], 9]], 'AVG',
-          'BAD',
-        ],
+          'BAD'],
         'VERY_GOOD', '#497a49',
         'GOOD', '#98be68',
         'AVG', '#edeac2',
         'BAD', '#d6bd8d',
-        '#e0e0e0'
-      ]
+        '#e0e0e0']
       fill-outline-color: [
         'interpolate', ['linear'],
         ['zoom'],
         12, transparent,
-        19, '#555',
-      ]
+        19, '#555']
     metadata:
       name: Potencial d'aprofitament fotovoltaic
       labels:

@@ -1,5 +1,5 @@
 import { useGeoJSON } from '/@/utils/index';
-import { constants, carto } from '/@/config.yaml';
+import config from '/@/config.yaml';
 
 // Averaged energy price across panels' lifespan
 const getMeanPrice = (basePrice, incrementRatio, lifespan) => (
@@ -10,7 +10,7 @@ const getMeanPrice = (basePrice, incrementRatio, lifespan) => (
 	}, { sum: basePrice, current: basePrice }).sum / lifespan
 );
 
-const { ENERGY: { TARIFF_C_BASE, TARIFF_BLUE_BASE, PRICE_INCREASE }, LIFESPAN } = constants;
+const { ENERGY: { TARIFF_C_BASE, TARIFF_BLUE_BASE, PRICE_INCREASE }, LIFESPAN } = config.constants;
 export const TARIFF_C = getMeanPrice(TARIFF_C_BASE, PRICE_INCREASE, LIFESPAN);
 export const TARIFF_BLUE = getMeanPrice(TARIFF_BLUE_BASE, PRICE_INCREASE, LIFESPAN);
 
@@ -19,7 +19,7 @@ export default async function useDataRepository() {
 	const { onProperties } = useGeoJSON();
 
 	const { VITE_CARTO_TOKEN: token } = import.meta.env;
-	const { user, query } = carto;
+	const { user, query } = config.carto;
 	const url = `https://${user}.carto.com/api/v2/sql?q=${query}&api_key=${token}&format=geojson`;
 
 	try {
@@ -27,7 +27,7 @@ export default async function useDataRepository() {
 		const json = await response.json();
 
 		// Calculate rooftop variables
-		const { PANEL_AREA, PANEL_POWER, EFFICIENCY } = constants;
+		const { PANEL_AREA, PANEL_POWER, EFFICIENCY } = config.constants;
 		const rooftops = onProperties(json, properties => {
 			const { use_area: useArea, mean_rad: meanRad } = properties;
 			const panels = Math.floor(useArea / PANEL_AREA);
@@ -37,7 +37,7 @@ export default async function useDataRepository() {
 		});
 
 		// Group rooftops by CESI and aggregate variables
-		const { COSTS, GRANT, GRANT_MAX, EMISSIONS_FACTOR, HOME_CONSUMPTION } = constants;
+		const { COSTS, GRANT, GRANT_MAX, EMISSIONS_FACTOR, HOME_CONSUMPTION } = config.constants;
 		const sum = values => values.reduce((acc, value) => acc + value, 0);
 		const { mergeByProperty } = useGeoJSON();
 		const mergedRoofs = mergeByProperty(rooftops, 'cesi', sum);
@@ -51,7 +51,7 @@ export default async function useDataRepository() {
 			const install_cost = costPower * power * 1000;
 			const installationGrant = power * Math.min(costPower, COSTS.REF) * GRANT * 1000;
 			const grant = Math.min(installationGrant, GRANT_MAX);
-			const operation_cost = findCost(constants.COSTS.OPERATION, power) * power;
+			const operation_cost = findCost(config.constants.COSTS.OPERATION, power) * power;
 			const profits = energy * TARIFF_C * 1000;
 			const return_period = (install_cost - grant) / (profits - operation_cost);
 			const emissions = (energy * EMISSIONS_FACTOR) / 1000;
