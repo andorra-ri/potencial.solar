@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/84ece09d-3a84-42dc-bdf4-e60e05d33b6a/deploy-status)](https://app.netlify.com/sites/solarpvad/deploys)
 
-Visualiztació del potencial energètic, la rendibilitat econòmica i els beneficis mediambientals d’hipotètiques instal·lacions d’energia solar en les cobertes dels edificis d'Andorra.
+Visualització del potencial energètic, la rendibilitat econòmica i els beneficis mediambientals d’hipotètiques instal·lacions d’energia solar en les cobertes dels edificis d'Andorra.
 
 La irradiació útil mitjana i geometria dels edificis es llegeix d'un dataset allotjat a Carto mitjançant la seva SQL API, i es mapeja sobre Mapbox GL. Tots els càlculs derivats i operacions espacials es realitzen in situ al browser de l'usuari.
 
@@ -11,8 +11,8 @@ La irradiació útil mitjana i geometria dels edificis es llegeix d'un dataset a
 Clonar el repositori i instal·lar dependències
 
 ```bash
-git clone https://github.com/obsa-and/solarpvad.git
-cd solarpvad
+git clone https://github.com/andorra-ri/potencial.solar.git
+cd potencial.solar
 npm install
 ```
 
@@ -28,3 +28,9 @@ Llençar entorn de desenvolupament
 ```bash
 npm run dev
 ```
+
+## Desplegament
+
+El projecte es desplega automàticament a Netlify cada vegada que es fa un push a la branca principal. :tada:
+
+S'han de [configurar les variables d'entorn](https://docs.netlify.com/environment-variables/get-started/#update-variables-with-the-netlify-ui) amb els nous tokens només si aquests han canviat.
