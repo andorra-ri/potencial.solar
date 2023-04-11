@@ -1,29 +1,8 @@
 import union from '@turf/union';
-import api from '/@/services/supabase';
+import api, { type RoofDTO } from '/@/services/supabase';
 import { getMeanPrice, findCost, groupBy } from '/@/utils';
+import type { Roof, Building } from '/@/types';
 import config from '/@/config.yaml';
-
-const adaptRooftop = rooftop => {
-  const { geom: geometry, use_area: useArea, mean_rad: meanRad, ...properties } = rooftop;
-  const panels = Math.floor(useArea / PANEL_AREA);
-  const power = panels * PANEL_POWER;
-  const energy = (meanRad * power * EFFICIENCY) / 1000;
-  return { ...properties, useArea, meanRad, panels, power, energy, geometry };
-};
-
-const mergeRooftops = (building, rooftop) => ({
-  cesi: rooftop.cesi,
-  useArea: (building.useArea || 0) + rooftop.useArea,
-  area: (building.area || 0) + rooftop.area,
-  panels: (building.panels || 0) + rooftop.panels,
-  sumRad: (building.sumRad || 0) + rooftop.sum_rad,
-  maxRad: (building.maxRad || 0) + rooftop.max_rad,
-  power: (building.power || 0) + rooftop.power,
-  energy: (building.energy || 0) + rooftop.energy,
-  geometry: building.geometry
-    ? union(building.geometry, rooftop.geometry).geometry
-    : rooftop.geometry,
-});
 
 const {
   LIFESPAN,
@@ -32,12 +11,33 @@ const {
   PANEL_AREA, PANEL_POWER, EFFICIENCY,
 } = config.constants;
 
+const adaptRooftop = (roof: RoofDTO): Roof => {
+  const panels = Math.floor(roof.useArea / PANEL_AREA);
+  const power = panels * PANEL_POWER;
+  const energy = (roof.meanRad * power * EFFICIENCY) / 1000;
+  return { ...roof, panels, power, energy };
+};
+
+const mergeRooftops = (building: Building, rooftop: Roof): Building => ({
+  cesi: rooftop.cesi,
+  useArea: (building.useArea || 0) + rooftop.useArea,
+  area: (building.area || 0) + rooftop.area,
+  panels: (building.panels || 0) + rooftop.panels,
+  sumRad: (building.sumRad || 0) + rooftop.sumRad,
+  maxRad: (building.maxRad || 0) + rooftop.maxRad,
+  power: (building.power || 0) + rooftop.power,
+  energy: (building.energy || 0) + rooftop.energy,
+  geometry: building.geometry
+    ? union(building.geometry, rooftop.geometry)?.geometry || building.geometry
+    : rooftop.geometry,
+});
+
 export const TARIFF_C = getMeanPrice(TARIFF_C_BASE, PRICE_INCREASE, LIFESPAN);
 export const TARIFF_BLUE = getMeanPrice(TARIFF_BLUE_BASE, PRICE_INCREASE, LIFESPAN);
 
 export default async function useDataRepository() {
-  const TABLE = 'buildings_radiation_andorra';
-  const data = await api.get(TABLE);
+  const TABLE = 'roofs_radiation_andorra';
+  const data = await api.get<RoofDTO[]>(TABLE);
 
   const rooftops = data.map(adaptRooftop);
 
