@@ -47,6 +47,7 @@ export default {
 				addFullscreen();
 				addControl('legend', 'top-left', new LegendControl({
 					toggler: true,
+					highlight: true,
 					layers: {
 						Roofs: ['fill-color'],
 						Buildings: ['fill-color'],
