@@ -9,17 +9,17 @@ project:
   warn: El potencial fotovoltaic de les cobertes s'ha estimat a través d'una metodologia a gran escala. En aquest sentit, els resultats presentats no són substitut d'un anàlisi tècnic específic realitzat per una enginyeria, sinó que pretenen ajudar a identificar zones i cobertes potencialment interessants. Us animem a llegir l'informe metodològic per conèixer més detall de la metodologia implementada, així com de les seves limitacions.
   docs: Documents de referència
 
-rooftop_not_usable: Coberta no aprofitable
-building_not_usable: Edifici no aprofitable
+rooftopNotUsable: Coberta no aprofitable
+buildingNotUsable: Edifici no aprofitable
 
 alert:
-  meteo_conditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
+  meteoConditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
 
 button:
-  calculate_co2: Calcula les teves emissions de CO₂
+  calculateCo2: Calcula les teves emissions de CO₂
 
 status:
-  ERROR_CARTO_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.
+  ERROR_SUPABASE_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.
   LOADING_DATA: Carregant dades...
   LOADING_MAP: Carregant mapa...
   LOADING_LAYERS: Carregant capes...
@@ -28,7 +28,7 @@ metric:
   resource: Recurs solar
   installation: Instal·lació
   economics: Indicadors econòmics
-  self_supply: Autoconsum
+  selfSupply: Autoconsum
   environment: Indicadors ambientals
   radiation:
     label: Irradiació útil mitjana
@@ -45,19 +45,19 @@ metric:
   energy:
     label: Electricitat generada
     unit: MWh/any
-  self_energy:
+  selfEnergy:
     label: Autoconsum
     unit: MWh/any
-  inject_energy:
+  injectEnergy:
     label: Injecció a xarxa
     unit: MWh/any
-  install_cost:
+  installCost:
     label: Inversió estimada
     unit: €
   grant:
     label: Ajut Pla Renova
     unit: €
-  operation_cost:
+  operationCost:
     label: Cost d'operació
     unit: €/any
   savings:
@@ -66,12 +66,12 @@ metric:
   profits:
     label: Ingressos (injecció a xarxa)
     unit: €/any
-  return_period:
+  returnPeriod:
     label: Període de retorn
     unit: anys
-  emission_savings:
+  emissionSavings:
     label: Estalvi d'emissions
     unit: tCO₂/any
-  homes_eq:
+  homesEq:
     label: Consum equivalent
     unit: habitatges

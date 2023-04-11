@@ -6,6 +6,10 @@ Visualització del potencial energètic, la rendibilitat econòmica i els benefi
 
 La irradiació útil mitjana i geometria dels edificis es llegeix d'un dataset allotjat a Carto mitjançant la seva SQL API, i es mapeja sobre Mapbox GL. Tots els càlculs derivats i operacions espacials es realitzen in situ al browser de l'usuari.
 
+## Dades
+
+Totes les dades són allotjades a [Supabase](https://supabase.com), en una base de dades PostgreSQL amb el plugin PostGIS. Supabase permet l'accés a través d'una API que mapeja directament la PostgreSQL a una resposta JSON, sense necessitat de crear cap proxy o middleware. Permet també la connexió directa des de software GIS.
+
 ## Contribuir
 
 Clonar el repositori i instal·lar dependències
@@ -16,11 +20,12 @@ cd potencial.solar
 npm install
 ```
 
-Crear fitxer `.env` amb els tokens d'accés a Carto i Mapbox
+Crear fitxer `.env` amb els tokens d'accés a Supabase i Mapbox
 
 ```env
 VITE_MAPBOX_TOKEN=
-VITE_CARTO_TOKEN=
+VITE_SUPABASE_URL=
+VITE_SUPABASE_TOKEN=
 ```
 
 Llençar entorn de desenvolupament

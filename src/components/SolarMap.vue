@@ -10,8 +10,9 @@
 import { ref, reactive, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMap, useControls, useGeoJSON, useMarker, usePopup } from 'mapbox-composition';
+import { feature, featureCollection } from '@turf/helpers';
 import LegendControl from 'mapboxgl-legend';
-import useDataRepository from '/@/data-repository';
+import useDataRepository from '/@/repository';
 import RoofPopup from '/@/components/RoofPopup.vue';
 import BuildingPopup from '/@/components/BuildingPopup.vue';
 import config from '/@/config.yaml';
@@ -75,7 +76,10 @@ export default {
 
 				useGeoJSON(map, {
 					name: 'roofs',
-					source: rooftops,
+					source: featureCollection(rooftops.map(rooftop => {
+						const { geometry, ...properties } = rooftop;
+						return feature(geometry, properties);
+					})),
 					layers: [config.layers.roofs],
 					onClick: ({ lngLat, features }) => {
 						popup.setLocation(lngLat);
@@ -86,7 +90,10 @@ export default {
 
 				useGeoJSON(map, {
 					name: 'buildings',
-					source: buildings,
+					source: featureCollection(buildings.map(building => {
+						const { geometry, ...properties } = building;
+						return feature(geometry, properties);
+					})),
 					layers: [config.layers.buildings],
 					onClick: ({ lngLat, features }) => {
 						popup.setLocation(lngLat);
