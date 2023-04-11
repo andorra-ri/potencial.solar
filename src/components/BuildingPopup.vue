@@ -35,7 +35,7 @@
   </teleport>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import MetricsList from './MetricsList.vue';

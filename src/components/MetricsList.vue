@@ -10,7 +10,7 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
 import { useI18n } from 'vue-i18n';
 
 export default {
