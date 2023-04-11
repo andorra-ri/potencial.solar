@@ -1,20 +1,23 @@
 constants:
-  LIFESPAN: 25 # years
-  PANEL_AREA: 1.8 # 1.8 m2
-  PANEL_POWER: 0.38 # 0.38 kWp
-  EFFICIENCY: 0.83 # 83%
-  COSTS:
-    REF: 1.3 # €/kWp
-    INSTALL: [[2, 1.50], [6, 1.3], [20, 1.15], [50, 1.10], [Infinity, 1]] # €/kW
+  panel:
+    LIFESPAN: 25 # years
+    AREA: 1.8 # m2
+    POWER: 0.38 # kWp
+    EFFICIENCY: 0.83 # %
+  costs:
+    REFERENCE: 1.3 # €/kWp
+    INSTALLATION: [[2, 1.50], [6, 1.3], [20, 1.15], [50, 1.10], [Infinity, 1]] # €/kW
     OPERATION: [[50, 25], [Infinity, 18]] # €/kWp
-  GRANT: 0.4 # 40%
-  GRANT_MAX: 8000 # €
-  ENERGY:
-    TARIFF_C_BASE: 0.1104 # €/kWh
-    TARIFF_BLUE_BASE: 0.153 # €/kWh
-    PRICE_INCREASE: 0.015 # 1.5%/year
-  EMISSIONS_FACTOR: 124 # gCO2/kWh
-  HOME_CONSUMPTION: 5768 # kWh/any
+  grants:
+    BASE: 0.4 # %
+    MAX: 8000 # €
+  tariffs:
+    C_BASE: 0.1104 # €/kWh
+    BLUE_BASE: 0.153 # €/kWh
+    INCREASE: 0.015 # %/year
+  environment:
+    EMISSIONS_FACTOR: 124 # gCO2/kWh
+    HOME_CONSUMPTION: 5768 # kWh/any
 
 map:
   center: [1.6, 42.55]

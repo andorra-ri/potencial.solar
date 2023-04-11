@@ -4,17 +4,12 @@ import { getMeanPrice, findCost, groupBy } from '/@/utils';
 import type { Roof, Building } from '/@/types';
 import config from '/@/config.yaml';
 
-const {
-  LIFESPAN,
-  ENERGY: { TARIFF_C_BASE, TARIFF_BLUE_BASE, PRICE_INCREASE },
-  COSTS, GRANT, GRANT_MAX, EMISSIONS_FACTOR, HOME_CONSUMPTION,
-  PANEL_AREA, PANEL_POWER, EFFICIENCY,
-} = config.constants;
+const { panel, tariffs, costs, grants, environment } = config.constants;
 
 const adaptRooftop = (roof: RoofDTO): Roof => {
-  const panels = Math.floor(roof.useArea / PANEL_AREA);
-  const power = panels * PANEL_POWER;
-  const energy = (roof.meanRad * power * EFFICIENCY) / 1000;
+  const panels = Math.floor(roof.useArea / panel.AREA);
+  const power = panels * panel.POWER;
+  const energy = (roof.meanRad * power * panel.EFFICIENCY) / 1000;
   return { ...roof, panels, power, energy };
 };
 
@@ -32,8 +27,8 @@ const mergeRooftops = (building: Building, rooftop: Roof): Building => ({
     : rooftop.geometry,
 });
 
-export const TARIFF_C = getMeanPrice(TARIFF_C_BASE, PRICE_INCREASE, LIFESPAN);
-export const TARIFF_BLUE = getMeanPrice(TARIFF_BLUE_BASE, PRICE_INCREASE, LIFESPAN);
+export const TARIFF_C = getMeanPrice(tariffs.C_BASE, tariffs.INCREASE, panel.LIFESPAN);
+export const TARIFF_BLUE = getMeanPrice(tariffs.BLUE_BASE, tariffs.INCREASE, panel.LIFESPAN);
 
 export default async function useDataRepository() {
   const TABLE = 'roofs_radiation_andorra';
@@ -44,15 +39,15 @@ export default async function useDataRepository() {
   const buildings = groupBy(rooftops, 'cesi', mergeRooftops)
     .map(building => {
       const { power, energy } = building;
-      const costPower = findCost(COSTS.INSTALL, power);
+      const costPower = findCost(costs.INSTALLATION, power);
       const installCost = costPower * power * 1000;
-      const installationGrant = power * Math.min(costPower, COSTS.REF) * GRANT * 1000;
-      const grant = Math.min(installationGrant, GRANT_MAX);
-      const operationCost = findCost(COSTS.OPERATION, power) * power;
+      const installationGrant = power * Math.min(costPower, costs.REFERENCE) * grants.BASE * 1000;
+      const grant = Math.min(installationGrant, grants.MAX);
+      const operationCost = findCost(costs.OPERATION, power) * power;
       const profits = energy * TARIFF_C * 1000;
       const returnPeriod = (installCost - grant) / (profits - operationCost);
-      const emissions = (energy * EMISSIONS_FACTOR) / 1000;
-      const homesEq = (energy * 1000) / HOME_CONSUMPTION;
+      const emissions = (energy * environment.EMISSIONS_FACTOR) / 1000;
+      const homesEq = (energy * 1000) / environment.HOME_CONSUMPTION;
       return {
         ...building,
         installCost,
