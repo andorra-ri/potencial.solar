@@ -50,7 +50,7 @@ export default {
       try {
         status.type = 'waiting';
         status.message = 'LOADING_DATA';
-        const { rooftops, buildings } = await useDataRepository();
+        const { roofs, buildings } = await useDataRepository();
 
         status.message = 'LOADING_MAP';
         const map = await useMap('map', { ...config.map, accessToken });
@@ -88,8 +88,8 @@ export default {
 
         useGeoJSON(map, {
           name: 'roofs',
-          source: featureCollection(rooftops.map(rooftop => {
-            const { geometry, ...properties } = rooftop;
+          source: featureCollection(roofs.map(roof => {
+            const { geometry, ...properties } = roof;
             return feature(geometry, properties);
           })),
           layers: [config.layers.roofs],

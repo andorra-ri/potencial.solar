@@ -9,7 +9,7 @@ project:
   warn: El potencial fotovoltaic de les cobertes s'ha estimat a través d'una metodologia a gran escala. En aquest sentit, els resultats presentats no són substitut d'un anàlisi tècnic específic realitzat per una enginyeria, sinó que pretenen ajudar a identificar zones i cobertes potencialment interessants. Us animem a llegir l'informe metodològic per conèixer més detall de la metodologia implementada, així com de les seves limitacions.
   docs: Documents de referència
 
-rooftopNotUsable: Coberta no aprofitable
+roofNotUsable: Coberta no aprofitable
 buildingNotUsable: Edifici no aprofitable
 
 alert:

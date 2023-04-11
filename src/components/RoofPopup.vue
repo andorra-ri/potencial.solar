@@ -7,7 +7,7 @@
         <metrics-list :metrics="metrics" />
       </details>
     </section>
-    <p v-else class="not-usable">{{ t('rooftopNotUsable') }}</p>
+    <p v-else class="not-usable">{{ t('roofNotUsable') }}</p>
   </teleport>
 </template>
 
