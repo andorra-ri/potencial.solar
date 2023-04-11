@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 @import
-	'layout',
-	'typography',
-	'media',
-	'components/map';
+  'layout',
+  'typography',
+  'media',
+  'components/map';
 
 :root {
-	font-size: 16px;
-	font-family: 'Poppins', sans-serif;
-	color: #323637;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  color: #323637;
 
-	--map-legend-minwidth: 225px;
+  --map-legend-minwidth: 225px;
 }
