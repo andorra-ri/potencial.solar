@@ -4,11 +4,11 @@ import { getMeanPrice, findCost, groupBy } from '/@/utils';
 import config from '/@/config.yaml';
 
 const adaptRooftop = rooftop => {
-	const { geom: geometry, use_area: useArea, mean_rad: meanRad, ...properties } = rooftop;
+	const { use_area: useArea, mean_rad: meanRad, ...properties } = rooftop;
 	const panels = Math.floor(useArea / PANEL_AREA);
 	const power = panels * PANEL_POWER;
 	const energy = (meanRad * power * EFFICIENCY) / 1000;
-	return { ...properties, useArea, meanRad, panels, power, energy, geometry };
+	return { ...properties, useArea, meanRad, panels, power, energy };
 };
 
 const mergeRooftops = (building, rooftop) => ({
@@ -36,7 +36,7 @@ export const TARIFF_C = getMeanPrice(TARIFF_C_BASE, PRICE_INCREASE, LIFESPAN);
 export const TARIFF_BLUE = getMeanPrice(TARIFF_BLUE_BASE, PRICE_INCREASE, LIFESPAN);
 
 export default async function useDataRepository() {
-	const TABLE = 'buildings_radiation_andorra';
+	const TABLE = 'roofs_radiation_andorra';
 	const data = await api.get(TABLE);
 
 	const rooftops = data.map(adaptRooftop);
