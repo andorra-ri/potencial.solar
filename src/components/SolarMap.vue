@@ -9,7 +9,7 @@
 <script lang="ts">
 import { ref, reactive, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useMap, useControls, useGeoJSON, useMarker, usePopup } from 'mapbox-composition';
+import { useMap, useControls, useGeoJSON, useMarker, usePopup, type Map } from 'mapbox-composition';
 import { feature, featureCollection } from '@turf/helpers';
 import LegendControl from 'mapboxgl-legend';
 import useDataRepository from '/@/repository';
@@ -17,10 +17,18 @@ import RoofPopup from '/@/components/RoofPopup.vue';
 import BuildingPopup from '/@/components/BuildingPopup.vue';
 import config from '/@/config.yaml';
 
+type MarkerDescription = {
+  type: string;
+  coordinates: [number, number];
+  text: string;
+};
+
 const { VITE_MAPBOX_TOKEN: accessToken } = import.meta.env;
 
+// TODO: Use proper types for all <any> after refactoring
+
 // Only show markers on zoom > 14
-const zoomVisibleMarker = (map, marker) => {
+const zoomVisibleMarker = (map: Map, marker: any) => {
   const zoom = map.getZoom();
   if (zoom < 14) marker.remove();
   else marker.addTo(map);
@@ -31,9 +39,12 @@ export default {
   components: { RoofPopup, BuildingPopup },
   setup() {
     const { t } = useI18n();
-    const status = reactive({ type: undefined, message: undefined });
-    const activeRoof = ref(undefined);
-    const activeBuilding = ref(undefined);
+    const status = reactive<{
+      type: 'waiting' | 'error' | null;
+      message: string;
+    }>({ type: null, message: '' });
+    const activeRoof = ref<any>();
+    const activeBuilding = ref<any>();
 
     onMounted(async () => {
       try {
@@ -63,7 +74,7 @@ export default {
           closeOnClick: false,
         });
 
-        config.markers.forEach(({ type, coordinates, text }) => {
+        config.markers.forEach(({ type, coordinates, text }: MarkerDescription) => {
           const element = document.createElement('div');
           element.classList.add(`marker-${type}`);
           const { marker } = useMarker(map, {
@@ -106,7 +117,7 @@ export default {
         status.type = null;
       } catch (error) {
         status.type = 'error';
-        status.message = error.message;
+        status.message = error instanceof Error ? error.message : 'error';
       }
     });
 
