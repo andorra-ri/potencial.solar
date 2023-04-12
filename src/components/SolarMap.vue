@@ -3,12 +3,12 @@
     <div id="map" />
     <roof-popup v-if="activeRoof" :roof="activeRoof" to="metrics-popup" />
     <building-popup v-if="activeBuilding" :roof="activeBuilding" to="metrics-popup" />
-    <div v-if="status.type" :class="status.type">{{ t(`status.${status.message}`) }}</div>
+    <div v-if="status" class="status">{{ t(status) }}</div>
   </section>
 </template>
 
 <script lang="ts">
-import { ref, reactive, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useMap, useControls, useGeoJSON, useMarker, usePopup, type Map } from 'mapbox-composition';
 import { feature, featureCollection } from '@turf/helpers';
@@ -40,20 +40,18 @@ export default {
   components: { RoofPopup, BuildingPopup },
   setup() {
     const { t } = useI18n();
-    const status = reactive<{
-      type: 'waiting' | 'error' | null;
-      message: string;
-    }>({ type: null, message: '' });
+    const status = ref<string>();
     const activeRoof = ref<any>();
     const activeBuilding = ref<any>();
 
+    const { roofs, buildings, loadRoofs } = useRoofsRepository();
+
     onMounted(async () => {
       try {
-        status.type = 'waiting';
-        status.message = 'LOADING_DATA';
-        const { roofs, buildings } = await useRoofsRepository();
+        status.value = 'status.LOADING_DATA';
+        await loadRoofs();
 
-        status.message = 'LOADING_MAP';
+        status.value = 'status.LOADING_MAP';
         const map = await useMap('map', { ...config.map, accessToken });
         const { addControl, addFullscreen } = useControls(map);
         addFullscreen();
@@ -69,7 +67,7 @@ export default {
         // Hide default style buildings to avoid confusion
         map.setLayoutProperty('building', 'visibility', 'none');
 
-        status.message = 'LOADING_LAYERS';
+        status.value = 'status.LOADING_LAYERS';
         const popup = usePopup(map, {
           name: 'metrics-popup',
           closeOnClick: false,
@@ -89,7 +87,7 @@ export default {
 
         useGeoJSON(map, {
           name: 'roofs',
-          source: featureCollection(roofs.map(roof => {
+          source: featureCollection(roofs.value.map(roof => {
             const { geometry, ...properties } = roof;
             return feature(geometry, properties);
           })),
@@ -103,7 +101,7 @@ export default {
 
         useGeoJSON(map, {
           name: 'buildings',
-          source: featureCollection(buildings.map(building => {
+          source: featureCollection(buildings.value.map(building => {
             const { geometry, ...properties } = building;
             return feature(geometry, properties);
           })),
@@ -115,10 +113,9 @@ export default {
           },
         });
 
-        status.type = null;
-      } catch (error) {
-        status.type = 'error';
-        status.message = error instanceof Error ? error.message : 'error';
+        status.value = undefined;
+      } catch {
+        status.value = 'status.ERROR';
       }
     });
 
