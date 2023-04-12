@@ -12,8 +12,8 @@ project:
 roofNotUsable: Coberta no aprofitable
 buildingNotUsable: Edifici no aprofitable
 
-alert:
-  meteoConditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
+markers:
+  pas_de_la_casa_meteo_conditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
 
 button:
   calculateCo2: Calcula les teves emissions de CO₂

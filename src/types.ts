@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import type { Polygon, MultiPolygon } from '@turf/helpers';
+import type { Geometry, Polygon, MultiPolygon } from '@turf/helpers';
 
 /* Domain types */
 
@@ -17,6 +17,12 @@ export type Roof = {
 };
 
 export type Building = Omit<Roof, 'meanRad'>;
+
+export type Marker = {
+  title: string;
+  type: string;
+  geometry: Geometry;
+}
 
 /* Utility types */
 

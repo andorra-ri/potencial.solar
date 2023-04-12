@@ -13,25 +13,8 @@ import { createMap, useMap } from '/@/services/map';
 import { useRoofsRepository } from '/@/repositories';
 import { PopupBuilding, PopupRoof } from '/@/components';
 import { toFeatureCollection } from '/@/utils';
-import type { Roof, Building } from '/@/types';
+import type { Roof, Building, Marker } from '/@/types';
 import config from '/@/config.yaml';
-
-/*
-type MarkerDescription = {
-  type: string;
-  coordinates: [number, number];
-  text: string;
-};
-*/
-
-// Only show markers on zoom > 14
-/*
-const zoomVisibleMarker = (map: Map, marker: any) => {
-  const zoom = map.getZoom();
-  if (zoom < 14) marker.remove();
-  else marker.addTo(map);
-};
-*/
 
 const { t } = useI18n();
 const status = ref<string>();
@@ -61,6 +44,15 @@ addLayer(computed(() => {
   return { name: 'buildings', source, layers, onClick: bindClick };
 }));
 
+addLayer({
+  name: 'markers',
+  source: toFeatureCollection(config.markers.map((marker: Marker) => {
+    const title = t(`markers.${marker.title}`);
+    return { ...marker, title };
+  })),
+  layers: config.layers.MARKERS,
+});
+
 onMounted(async () => {
   try {
     status.value = 'status.LOADING_MAP';
@@ -68,23 +60,6 @@ onMounted(async () => {
 
     status.value = 'status.LOADING_DATA';
     await loadRoofs();
-
-    /*
-    // Hide default style buildings to avoid confusion
-    map.setLayoutProperty('building', 'visibility', 'none');
-
-    config.markers.forEach(({ type, coordinates, text }: MarkerDescription) => {
-      const element = document.createElement('div');
-      element.classList.add(`marker-${type}`);
-      const { marker } = useMarker(map, {
-        element,
-        coordinates,
-        popup: usePopup({ content: t(`${type}.${text}`) }),
-      });
-      zoomVisibleMarker(map, marker);
-      map.on('zoom', () => zoomVisibleMarker(map, marker));
-    });
-    */
 
     status.value = undefined;
   } catch {

@@ -35,12 +35,15 @@ map:
     layers:
       roofs: [fill-color]
       buildings: [fill-color]
+  images:
+    alert: /alert.png
 
 markers:
-  - name: pas_de_la_casa
+  - title: pas_de_la_casa_meteo_conditions
     type: alert
-    coordinates: [1.734892, 42.541648]
-    text: meteo_conditions
+    geometry:
+      type: Point
+      coordinates: [1.734892, 42.541648]
 
 layers:
   ROOFS:
@@ -100,3 +103,23 @@ layers:
           GOOD: Bo
           VERY_GOOD: Molt bo
           other: No aprofitable
+  
+  MARKERS:
+    - name: marker
+      type: symbol
+      minzoom: 15
+      layout:
+        icon-allow-overlap: true
+        icon-size: 0.1
+        icon-image: ['match', ['get', 'type'],
+          alert, alert,
+          marker]
+        text-field: [get, title]
+        text-size: 12
+        text-variable-anchor: [top, left]
+        text-radial-offset: 1.5
+        text-justify: center
+        text-allow-overlap: true
+        text-line-height: 1
+      paint:
+        text-color: red

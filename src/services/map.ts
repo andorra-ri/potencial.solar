@@ -3,7 +3,7 @@ import {
   useMap as useMapbox,
   useControls,
   useGeoJSON,
-  // useMarker,
+  useImages,
   usePopup,
   type Map,
   type GeoJSONLayerOptions,
@@ -11,7 +11,6 @@ import {
   type MapOptions,
   type MapMouseEvent,
 } from 'mapbox-composition';
-// import { feature, featureCollection } from '@turf/helpers';
 import LegendControl, { type LegendControlOptions } from 'mapboxgl-legend';
 import { Deferred } from '/@/utils';
 import type { MaybeRef } from '/@/types';
@@ -22,12 +21,23 @@ const { VITE_MAPBOX_TOKEN } = import.meta.env;
 
 const MAP = new Deferred<Map>();
 
-export const createMap = async (options: MapOptions & { legend: LegendControlOptions }) => {
-  const { legend, controls, ...rest } = options;
+type CustomMapOptions = {
+  images?: Record<string, string>,
+  legend?: LegendControlOptions,
+};
+
+export const createMap = async (options: MapOptions & CustomMapOptions) => {
+  const { legend, images, controls, ...rest } = options;
   const map = await useMapbox('map', {
     ...rest,
     accessToken: VITE_MAPBOX_TOKEN,
   });
+
+  if (images) {
+    const { addImages } = useImages(map);
+    await addImages(images);
+  }
+
   const { addControl, addFullscreen } = useControls(map);
   if (legend) addControl('legend', 'top-left', new LegendControl(legend));
   addFullscreen();
