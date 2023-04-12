@@ -1,3 +1,5 @@
+import { featureCollection, feature, type Geometry } from '@turf/helpers';
+
 // Format number according to specific local and decimals
 export const numberFormatter = (locale: string) => (
   (value: number, decimals = 2) => new Intl.NumberFormat(locale, {
@@ -30,3 +32,26 @@ export const findCost = (costs: [number, number][], value: number) => {
   const [, cost] = costs.find(([limit]) => value <= limit) || costs[costs.length - 1];
   return cost;
 };
+
+export const toFeatureCollection = (items: { geometry: Geometry, properties?: object }[]) => {
+  const features = items.map(({ geometry: g, properties: p, ...rest }) => feature(g, p ?? rest));
+  return featureCollection(features);
+};
+
+// Deferred
+export class Deferred<T> {
+  promise: Promise<T>;
+  resolve!: (value: T) => void;
+
+  constructor() {
+    this.promise = new Promise(resolve => {
+      this.resolve = resolve;
+    });
+  }
+
+  reset() {
+    this.promise = new Promise(resolve => {
+      this.resolve = resolve;
+    });
+  }
+}

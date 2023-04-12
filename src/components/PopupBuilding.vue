@@ -1,6 +1,6 @@
 <template>
   <teleport :to="`#${to}`">
-    <h3>Edifici CESI {{ roof.cesi }}</h3>
+    <h3>Edifici CESI {{ data.cesi }}</h3>
     <section v-if="isUsable">
       <details open>
         <summary>{{ t('metric.installation') }}</summary>
@@ -47,7 +47,7 @@ export default {
   components: { MetricsList },
   props: {
     to: { type: String, required: true },
-    roof: { type: Object, required: true },
+    data: { type: Object, required: true },
   },
   setup(props) {
     const { t, locale } = useI18n();
@@ -55,17 +55,17 @@ export default {
 
     const selfSupplyRatio = ref(0);
 
-    const isUsable = computed(() => props.roof.panels > 0);
+    const isUsable = computed(() => props.data.panels > 0);
 
     const installation = computed(() => ({
-      area: `${formatNumber(props.roof.useArea, 0)} / ${formatNumber(props.roof.area, 0)}`,
-      panels: formatNumber(props.roof.panels),
-      power: formatNumber(props.roof.power, 2),
-      energy: formatNumber(props.roof.energy, 2),
+      area: `${formatNumber(props.data.useArea, 0)} / ${formatNumber(props.data.area, 0)}`,
+      panels: formatNumber(props.data.panels),
+      power: formatNumber(props.data.power, 2),
+      energy: formatNumber(props.data.energy, 2),
     }));
 
-    const selfSupplyEnergy = computed(() => props.roof.energy * selfSupplyRatio.value);
-    const injectionEnergy = computed(() => props.roof.energy * (1 - selfSupplyRatio.value));
+    const selfSupplyEnergy = computed(() => props.data.energy * selfSupplyRatio.value);
+    const injectionEnergy = computed(() => props.data.energy * (1 - selfSupplyRatio.value));
     const selfSupply = computed(() => ({
       selfEnergy: formatNumber(selfSupplyEnergy.value, 2),
       injectEnergy: formatNumber(injectionEnergy.value, 2),
@@ -74,12 +74,12 @@ export default {
     const economics = computed(() => {
       const savings = selfSupplyEnergy.value * TARIFF_BLUE * 1000;
       const profits = injectionEnergy.value * TARIFF_C * 1000;
-      const returnPeriod = (props.roof.installCost - props.roof.grant)
-        / (savings + profits - props.roof.operationCost);
+      const returnPeriod = (props.data.installCost - props.data.grant)
+        / (savings + profits - props.data.operationCost);
       return {
-        installCost: formatNumber(props.roof.installCost, 0),
-        grant: formatNumber(props.roof.grant, 0),
-        operationCost: formatNumber(props.roof.operationCost, 0),
+        installCost: formatNumber(props.data.installCost, 0),
+        grant: formatNumber(props.data.grant, 0),
+        operationCost: formatNumber(props.data.operationCost, 0),
         savings: formatNumber(savings, 0),
         profits: formatNumber(profits, 0),
         returnPeriod: formatNumber(returnPeriod),
@@ -87,8 +87,8 @@ export default {
     });
 
     const environment = computed(() => ({
-      emissionSavings: formatNumber(props.roof.emissions, 2),
-      homesEq: formatNumber(props.roof.homesEq, 0),
+      emissionSavings: formatNumber(props.data.emissions, 2),
+      homesEq: formatNumber(props.data.homesEq, 0),
     }));
 
     return { t, isUsable, installation, selfSupplyRatio, selfSupply, economics, environment };

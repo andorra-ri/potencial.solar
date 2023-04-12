@@ -29,6 +29,12 @@ map:
   minZoom: 10
   maxBounds: [[1.261305, 42.254118], [1.902439, 42.754004]]
   style: mapbox://styles/mapbox/light-v9
+  legend:
+    toggler: true
+    highlight: true
+    layers:
+      roofs: [fill-color]
+      buildings: [fill-color]
 
 markers:
   - name: pas_de_la_casa
@@ -37,60 +43,60 @@ markers:
     text: meteo_conditions
 
 layers:
-  roofs:
-    name: Roofs
-    type: fill
-    paint:
-      fill-color: [
-        'interpolate', ['linear'],
-        ['get', 'meanRad'],
-        1199, '#e0e0e0',
-        1200, '#f3e79b',
-        1400, '#f8a07e',
-        1600, '#ce6693',
-        1800, '#5c53a5']
-      fill-outline-color: [
-        'interpolate', ['linear'],
-        ['zoom'],
-        12, transparent,
-        19, '#666']
-    metadata:
-      name: 'Irradiació útil per coberta'
-      labels:
-        # Hack to display appropriate legend tags
-        1199: 1200 kWh/m²
-        1200: ' '
-        1400: ' '
-        1600: ' '
-        1800: 1800 kWh/m²
+  ROOFS:
+    - name: roofs
+      type: fill
+      paint:
+        fill-color: [
+          interpolate, [linear],
+          [get, meanRad],
+          1199, '#e0e0e0',
+          1200, '#f3e79b',
+          1400, '#f8a07e',
+          1600, '#ce6693',
+          1800, '#5c53a5']
+        fill-outline-color: [
+          interpolate, [linear],
+          [zoom],
+          12, transparent,
+          19, '#666']
+      metadata:
+        name: 'Irradiació útil per coberta'
+        labels:
+          # Hack to display appropriate legend tags
+          1199: 1200 kWh/m²
+          1200: ' '
+          1400: ' '
+          1600: ' '
+          1800: 1800 kWh/m²
 
-  buildings:
-    name: Buildings
-    type: fill
-    paint:
-      fill-color: [
-        'match',
-        ['case',
-          ['==', ['get', 'returnPeriod'], null], 'NOT_APPLICABLE',
-          ['<=', ['get', 'returnPeriod'], 5.5], 'VERY_GOOD',
-          ['all', ['>', ['get', 'returnPeriod'], 5.5], ['<=', ['get', 'returnPeriod'], 7]], 'GOOD',
-          ['all', ['>', ['get', 'returnPeriod'], 7], ['<=', ['get', 'returnPeriod'], 9]], 'AVG',
-          'BAD'],
-        'VERY_GOOD', '#497a49',
-        'GOOD', '#98be68',
-        'AVG', '#edeac2',
-        'BAD', '#d6bd8d',
-        '#e0e0e0']
-      fill-outline-color: [
-        'interpolate', ['linear'],
-        ['zoom'],
-        12, transparent,
-        19, '#555']
-    metadata:
-      name: Potencial d'aprofitament fotovoltaic
-      labels:
-        BAD: Baix
-        AVG: Moderat
-        GOOD: Bo
-        VERY_GOOD: Molt bo
-        other: No aprofitable
+  BUILDINGS:
+    - name: buildings
+      type: fill
+      paint:
+        fill-color: [
+          match,
+          [case,
+            [==, [get, returnPeriod], null], NOT_APPLICABLE,
+            [<=, [get, returnPeriod], 5.5], VERY_GOOD,
+            [all, ['>', [get, returnPeriod], 5.5], [<=, [get, returnPeriod], 7]], GOOD,
+            [all, ['>', [get, returnPeriod], 7], [<=, [get, returnPeriod], 9]], AVG,
+            BAD],
+          VERY_GOOD, '#497a49',
+          GOOD, '#98be68',
+          AVG, '#edeac2',
+          BAD, '#d6bd8d',
+          '#e0e0e0']
+        fill-outline-color: [
+          interpolate, [linear],
+          [zoom],
+          12, transparent,
+          19, '#555']
+      metadata:
+        name: Potencial d'aprofitament fotovoltaic
+        labels:
+          BAD: Baix
+          AVG: Moderat
+          GOOD: Bo
+          VERY_GOOD: Molt bo
+          other: No aprofitable

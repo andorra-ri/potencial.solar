@@ -1,6 +1,6 @@
 <template>
   <teleport :to="`#${to}`">
-    <h3>Edifici CESI {{ roof.cesi }}</h3>
+    <h3>Edifici CESI {{ data.cesi }}</h3>
     <section v-if="isUsable">
       <details v-for="(metrics, group) in { resource, installation }" :key="group" open>
         <summary>{{ t(`metric.${group}`) }}</summary>
@@ -22,20 +22,20 @@ export default {
   components: { MetricsList },
   props: {
     to: { type: String, required: true },
-    roof: { type: Object, required: true },
+    data: { type: Object, required: true },
   },
   setup(props) {
     const { t, locale } = useI18n();
     const formatNumber = numberFormatter(locale.value);
 
-    const isUsable = computed(() => props.roof.panels > 0);
-    const resource = computed(() => ({ radiation: formatNumber(props.roof.meanRad, 0) }));
+    const isUsable = computed(() => props.data.panels > 0);
+    const resource = computed(() => ({ radiation: formatNumber(props.data.meanRad, 0) }));
 
     const installation = computed(() => ({
-      area: `${formatNumber(props.roof.useArea, 0)} / ${formatNumber(props.roof.area, 0)}`,
-      panels: formatNumber(props.roof.panels),
-      power: formatNumber(props.roof.power, 2),
-      energy: formatNumber(props.roof.energy, 2),
+      area: `${formatNumber(props.data.useArea, 0)} / ${formatNumber(props.data.area, 0)}`,
+      panels: formatNumber(props.data.panels),
+      power: formatNumber(props.data.power, 2),
+      energy: formatNumber(props.data.energy, 2),
     }));
 
     return { t, isUsable, resource, installation };
