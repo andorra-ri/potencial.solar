@@ -15,7 +15,7 @@
     "humps": "^2.0.1",
     "mapbox-composition": "^1.11.2",
     "mapbox-gl": "^2.13.0",
-    "mapboxgl-legend": "^1.9.0",
+    "mapboxgl-legend": "^1.10.1",
     "reset-css": "^5.0.1",
     "vue": "^3.2.47",
     "vue-i18n": "^9.2.2"
