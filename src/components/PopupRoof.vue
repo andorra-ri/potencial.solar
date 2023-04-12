@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import MetricsList from './MetricsList.vue';
 import { numberFormatter } from '/@/utils';
+import MetricsList from './MetricsList.vue';
 import type { Roof } from '/@/types';
 
 const props = defineProps<{

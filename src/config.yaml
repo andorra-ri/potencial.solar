@@ -23,6 +23,17 @@ constants:
     EMISSIONS_FACTOR: 124 # gCO2/kWh
     HOME_CONSUMPTION: 5768 # kWh/any
 
+docs:
+  - name: Informe metodològic
+    type: file
+    link: /docs/informe_metodologia.pdf
+  - name: Programa Renova
+    type: link
+    link: 'https://www.mediambient.ad/renova'
+  - name: Reglament de la generació d’energia elèctrica
+    type: link
+    link: 'https://www.bopa.ad/bopa/032069/Pagines/GR20200515_10_21_59.aspx'
+
 map:
   center: [1.6, 42.55]
   zoom: 11

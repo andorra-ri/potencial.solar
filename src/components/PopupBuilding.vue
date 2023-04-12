@@ -38,9 +38,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import MetricsList from './MetricsList.vue';
 import { TARIFF_C, TARIFF_BLUE } from '/@/repositories';
 import { numberFormatter } from '/@/utils';
+import MetricsList from './MetricsList.vue';
 import type { Building } from '/@/types';
 
 const props = defineProps<{
