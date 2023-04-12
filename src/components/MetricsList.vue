@@ -1,6 +1,6 @@
 <template>
   <ul class="metrics">
-    <li v-for="(metric, name) in metrics" :key="name">
+    <li v-for="(metric, name) in props.metrics" :key="name">
       <em>{{ t(`metric.${name}.label`) }}</em>
       <strong>
         {{ metric }}
@@ -10,20 +10,12 @@
   </ul>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
-export default {
-  name: 'MetricsList',
-  props: {
-    metrics: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup() {
-    const { t } = useI18n();
-    return { t };
-  },
-};
+const props = defineProps<{
+  metrics: Record<string, string | number>;
+}>();
+
+const { t } = useI18n();
 </script>

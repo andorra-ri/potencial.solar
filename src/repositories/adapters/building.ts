@@ -1,12 +1,12 @@
 import { getMeanPrice, findCost } from '/@/utils';
-import type { Building } from '/@/types';
+import type { Roof, Building } from '/@/types';
 import config from '/@/config.yaml';
 
 const { panel, tariffs, costs, grants, environment } = config.constants;
 
 const TARIFF_C = getMeanPrice(tariffs.C_BASE, tariffs.INCREASE, panel.LIFESPAN);
 
-export const adaptBuilding = (building: Building) => {
+export const adaptBuilding = (building: Roof): Building => {
   const { power, energy } = building;
   const costPower = findCost(costs.INSTALLATION, power);
   const installCost = costPower * power * 1000;
@@ -16,7 +16,7 @@ export const adaptBuilding = (building: Building) => {
   const profits = energy * TARIFF_C * 1000;
   const returnPeriod = (installCost - grant) / (profits - operationCost);
   const emissions = (energy * environment.EMISSIONS_FACTOR) / 1000;
-  const homesEq = (energy * 1000) / environment.HOME_CONSUMPTION;
+  const homesEquivalent = (energy * 1000) / environment.HOME_CONSUMPTION;
   return {
     ...building,
     installCost,
@@ -25,6 +25,6 @@ export const adaptBuilding = (building: Building) => {
     profits,
     returnPeriod,
     emissions,
-    homesEq,
+    homesEquivalent,
   };
 };

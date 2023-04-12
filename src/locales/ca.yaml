@@ -26,6 +26,7 @@ status:
   LOADING_LAYERS: Carregant capes...
 
 metric:
+  cesi: Edifici CESI {cesi}
   resource: Recurs solar
   installation: Instal·lació
   economics: Indicadors econòmics

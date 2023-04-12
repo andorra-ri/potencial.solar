@@ -16,7 +16,15 @@ export type Roof = {
   geometry: Polygon | MultiPolygon,
 };
 
-export type Building = Omit<Roof, 'meanRad'>;
+export type Building = {
+  installCost: number;
+  grant: number;
+  operationCost: number;
+  profits: number;
+  returnPeriod: number;
+  emissions: number;
+  homesEquivalent: number;
+} & Omit<Roof, 'meanRad'>;
 
 export type Marker = {
   title: string;

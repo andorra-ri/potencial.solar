@@ -1,6 +1,6 @@
 <template>
   <teleport :to="`#${to}`">
-    <h3>Edifici CESI {{ data.cesi }}</h3>
+    <h3>{{ t('metric.cesi', data) }}</h3>
     <section v-if="isUsable">
       <details v-for="(metrics, group) in { resource, installation }" :key="group" open>
         <summary>{{ t(`metric.${group}`) }}</summary>
@@ -11,34 +11,31 @@
   </teleport>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import MetricsList from './MetricsList.vue';
 import { numberFormatter } from '/@/utils';
+import type { Roof } from '/@/types';
 
-export default {
-  name: 'RoofPopup',
-  components: { MetricsList },
-  props: {
-    to: { type: String, required: true },
-    data: { type: Object, required: true },
-  },
-  setup(props) {
-    const { t, locale } = useI18n();
-    const formatNumber = numberFormatter(locale.value);
+const props = defineProps<{
+  to: string,
+  data: Roof,
+}>();
 
-    const isUsable = computed(() => props.data.panels > 0);
-    const resource = computed(() => ({ radiation: formatNumber(props.data.meanRad, 0) }));
+const { t, locale } = useI18n();
+const round = numberFormatter(locale.value);
 
-    const installation = computed(() => ({
-      area: `${formatNumber(props.data.useArea, 0)} / ${formatNumber(props.data.area, 0)}`,
-      panels: formatNumber(props.data.panels),
-      power: formatNumber(props.data.power, 2),
-      energy: formatNumber(props.data.energy, 2),
-    }));
+const isUsable = computed(() => props.data.panels > 0);
+const resource = computed(() => ({ radiation: round(props.data.meanRad, 0) }));
 
-    return { t, isUsable, resource, installation };
-  },
-};
+const installation = computed(() => {
+  const { area, useArea, panels, power, energy } = props.data;
+  return {
+    area: `${round(useArea, 0)} / ${round(area, 0)}`,
+    panels: round(panels),
+    power: round(power, 2),
+    energy: round(energy, 2),
+  };
+});
 </script>

@@ -1,6 +1,6 @@
 <template>
   <teleport :to="`#${to}`">
-    <h3>Edifici CESI {{ data.cesi }}</h3>
+    <h3>{{ t('metric.cesi', data) }}</h3>
     <section v-if="isUsable">
       <details open>
         <summary>{{ t('metric.installation') }}</summary>
@@ -35,63 +35,63 @@
   </teleport>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import MetricsList from './MetricsList.vue';
 import { TARIFF_C, TARIFF_BLUE } from '/@/repositories';
 import { numberFormatter } from '/@/utils';
+import type { Building } from '/@/types';
 
-export default {
-  name: 'RoofPopup',
-  components: { MetricsList },
-  props: {
-    to: { type: String, required: true },
-    data: { type: Object, required: true },
-  },
-  setup(props) {
-    const { t, locale } = useI18n();
-    const formatNumber = numberFormatter(locale.value);
+const props = defineProps<{
+  to: string,
+  data: Building,
+}>();
 
-    const selfSupplyRatio = ref(0);
+const { t, locale } = useI18n();
+const round = numberFormatter(locale.value);
 
-    const isUsable = computed(() => props.data.panels > 0);
+const selfSupplyRatio = ref(0);
 
-    const installation = computed(() => ({
-      area: `${formatNumber(props.data.useArea, 0)} / ${formatNumber(props.data.area, 0)}`,
-      panels: formatNumber(props.data.panels),
-      power: formatNumber(props.data.power, 2),
-      energy: formatNumber(props.data.energy, 2),
-    }));
+const isUsable = computed(() => props.data.panels > 0);
 
-    const selfSupplyEnergy = computed(() => props.data.energy * selfSupplyRatio.value);
-    const injectionEnergy = computed(() => props.data.energy * (1 - selfSupplyRatio.value));
-    const selfSupply = computed(() => ({
-      selfEnergy: formatNumber(selfSupplyEnergy.value, 2),
-      injectEnergy: formatNumber(injectionEnergy.value, 2),
-    }));
+const installation = computed(() => {
+  const { area, useArea, panels, power, energy } = props.data;
+  return {
+    area: `${round(useArea, 0)} / ${round(area, 0)}`,
+    panels: round(panels),
+    power: round(power, 2),
+    energy: round(energy, 2),
+  };
+});
 
-    const economics = computed(() => {
-      const savings = selfSupplyEnergy.value * TARIFF_BLUE * 1000;
-      const profits = injectionEnergy.value * TARIFF_C * 1000;
-      const returnPeriod = (props.data.installCost - props.data.grant)
-        / (savings + profits - props.data.operationCost);
-      return {
-        installCost: formatNumber(props.data.installCost, 0),
-        grant: formatNumber(props.data.grant, 0),
-        operationCost: formatNumber(props.data.operationCost, 0),
-        savings: formatNumber(savings, 0),
-        profits: formatNumber(profits, 0),
-        returnPeriod: formatNumber(returnPeriod),
-      };
-    });
+const selfSupplyEnergy = computed(() => props.data.energy * selfSupplyRatio.value);
+const injectionEnergy = computed(() => props.data.energy * (1 - selfSupplyRatio.value));
+const selfSupply = computed(() => ({
+  selfEnergy: round(selfSupplyEnergy.value, 2),
+  injectEnergy: round(injectionEnergy.value, 2),
+}));
 
-    const environment = computed(() => ({
-      emissionSavings: formatNumber(props.data.emissions, 2),
-      homesEq: formatNumber(props.data.homesEq, 0),
-    }));
+const economics = computed(() => {
+  const { installCost, operationCost, grant } = props.data;
+  const savings = selfSupplyEnergy.value * TARIFF_BLUE * 1000;
+  const profits = injectionEnergy.value * TARIFF_C * 1000;
+  const returnPeriod = (installCost - grant) / (savings + profits - operationCost);
+  return {
+    installCost: round(installCost, 0),
+    grant: round(grant, 0),
+    operationCost: round(operationCost, 0),
+    savings: round(savings, 0),
+    profits: round(profits, 0),
+    returnPeriod: round(returnPeriod),
+  };
+});
 
-    return { t, isUsable, installation, selfSupplyRatio, selfSupply, economics, environment };
-  },
-};
+const environment = computed(() => {
+  const { emissions, homesEquivalent } = props.data;
+  return {
+    emissionSavings: round(emissions, 2),
+    homesEq: round(homesEquivalent, 0),
+  };
+});
 </script>
