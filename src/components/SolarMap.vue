@@ -1,7 +1,7 @@
 <template>
   <section class="container scroll-to">
     <div id="map" />
-    <component :is="popupType" :data="activeItem" :to="POPUP_NAME" />
+    <component :is="popupType" :data="content.data" :to="content.name" />
     <div v-if="status" class="status">{{ t(status) }}</div>
   </section>
 </template>
@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { createMap, useMap, type MapMouseEvent } from '/@/services/map';
+import { createMap, useMap } from '/@/services/map';
 import { useRoofsRepository } from '/@/repositories';
 import { PopupBuilding, PopupRoof } from '/@/components';
 import { toFeatureCollection } from '/@/utils';
@@ -36,37 +36,29 @@ const zoomVisibleMarker = (map: Map, marker: any) => {
 const { t } = useI18n();
 const status = ref<string>();
 
-const POPUP_NAME = 'popup';
-const activeItem = ref<Roof | Building>();
-const popupType = computed(() => {
-  if (!activeItem.value) return null;
-  const isRoof = activeItem.value && 'meanRad' in activeItem.value;
-  return isRoof ? PopupRoof : PopupBuilding;
-});
-
 const { addLayer, addPopup } = useMap();
 const { roofs, buildings, loadRoofs } = useRoofsRepository();
 
-const popup = addPopup(computed(() => {
-  const name = POPUP_NAME;
-  return { name, closeOnClick: false };
-}));
+const { content, bindClick } = addPopup<Roof | Building>({
+  name: 'popup',
+  closeOnClick: false,
+});
 
-const onClick = ({ lngLat, features }: MapMouseEvent) => {
-  popup.value?.setLocation(lngLat);
-  activeItem.value = features[0].properties;
-};
+const popupType = computed(() => {
+  if (!content.value.data) return null;
+  return 'meanRad' in content.value.data ? PopupRoof : PopupBuilding;
+});
 
 addLayer(computed(() => {
   const source = toFeatureCollection(roofs.value);
   const layers = config.layers.ROOFS;
-  return { name: 'roofs', source, layers, onClick };
+  return { name: 'roofs', source, layers, onClick: bindClick };
 }));
 
 addLayer(computed(() => {
   const source = toFeatureCollection(buildings.value);
   const layers = config.layers.BUILDINGS;
-  return { name: 'buildings', source, layers, onClick };
+  return { name: 'buildings', source, layers, onClick: bindClick };
 }));
 
 onMounted(async () => {

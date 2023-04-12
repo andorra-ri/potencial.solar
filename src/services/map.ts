@@ -1,4 +1,4 @@
-import { ref, watch, type Ref } from 'vue';
+import { ref, readonly, watch } from 'vue';
 import {
   useMap as useMapbox,
   useControls,
@@ -14,6 +14,7 @@ import {
 // import { feature, featureCollection } from '@turf/helpers';
 import LegendControl, { type LegendControlOptions } from 'mapboxgl-legend';
 import { Deferred } from '/@/utils';
+import type { MaybeRef } from '/@/types';
 
 export type { MapMouseEvent };
 
@@ -34,28 +35,42 @@ export const createMap = async (options: MapOptions & { legend: LegendControlOpt
   MAP.resolve(map);
 };
 
+/* eslint-disable no-underscore-dangle */
 export const useMap = () => {
-  const addLayer = (options: Ref<GeoJSONLayerOptions>) => {
+  const addLayer = (options: MaybeRef<GeoJSONLayerOptions>) => {
     const layer = ref<ReturnType<typeof useGeoJSON>>();
     (async () => {
       const resolved = await MAP.promise;
-      layer.value = useGeoJSON(resolved, options.value);
-      watch(options, ({ source }) => layer.value?.updateSource(source));
+      const _options = ref(options);
+      layer.value = useGeoJSON(resolved, _options.value);
+      watch(_options, ({ source }) => layer.value?.updateSource(source));
     })();
     return layer;
   };
 
-  const addPopup = (options: Ref<PopupOptions>) => {
+  const addPopup = <T>(options: MaybeRef<PopupOptions>) => {
+    const _options = ref(options);
     const popup = ref<ReturnType<typeof usePopup>>();
+    const state = ref<{ name: string, data: T | undefined}>({
+      name: _options.value.name,
+      data: undefined,
+    });
+
+    const bindClick = ({ lngLat, features }: MapMouseEvent) => {
+      popup.value?.setLocation(lngLat);
+      state.value.data = features[0].properties;
+    };
+
     (async () => {
       const resolved = await MAP.promise;
-      popup.value = usePopup(resolved, options.value);
-      watch(options, ({ coordinates, content }) => {
+      popup.value = usePopup(resolved, _options.value);
+      watch(_options, ({ coordinates, content }) => {
         if (coordinates) popup.value?.setLocation(coordinates);
         if (content) popup.value?.setContent(content);
       });
     })();
-    return popup;
+
+    return { popup, content: readonly(state), bindClick };
   };
 
   return { addLayer, addPopup };
