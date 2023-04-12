@@ -60,6 +60,7 @@ layers:
   ROOFS:
     - name: roofs
       type: fill
+      visible: false
       paint:
         fill-color: [
           interpolate, [linear],
