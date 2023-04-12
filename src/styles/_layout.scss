@@ -58,7 +58,7 @@ footer {
 }
 
 .iconed-list {
-  a { display: inline-flex; }
+  a { display: inline-flex; } // stylelint-disable no-descending-specificity
 
   img {
     margin-right: 0.5em;
