@@ -6,17 +6,13 @@ export const numberFormatter = (locale: string) => (
   }).format(value)
 );
 
-// Group a array of items by an attribute. Provide merge function
-export const groupBy = <T extends object, V extends object>(
-  items: T[],
-  attribute: keyof T,
-  merge: (merged: V, item: T) => V,
-) => {
+// Group an array of items by any of its attributes
+export const groupBy = <T extends object>(items: T[], attribute: keyof T) => {
   const grouped = items.reduce((acc, item) => {
     const key = item[attribute];
-    acc.set(key, merge(acc.get(key) || {} as V, item));
+    acc.set(key, [...(acc.get(key) || []), item]);
     return acc;
-  }, new Map<T[keyof T], V>());
+  }, new Map<T[keyof T], T[]>());
   return [...grouped.values()];
 };
 

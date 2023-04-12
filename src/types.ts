@@ -1,5 +1,7 @@
 import type { Polygon, MultiPolygon } from '@turf/helpers';
 
+/* Domain types */
+
 export type Roof = {
   cesi: string;
   area: number;
@@ -14,3 +16,8 @@ export type Roof = {
 };
 
 export type Building = Omit<Roof, 'meanRad'>;
+
+/* Utility types */
+export type KeyOfAttributeType<T, K> = {
+  [k in keyof T]: (T[k] extends K ? k : never)
+}[keyof T];

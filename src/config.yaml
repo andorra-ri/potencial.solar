@@ -1,3 +1,7 @@
+api:
+  tables:
+    ROOFS: roofs_radiation_andorra
+
 constants:
   panel:
     LIFESPAN: 25 # years

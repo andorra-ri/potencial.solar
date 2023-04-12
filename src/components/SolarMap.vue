@@ -12,7 +12,7 @@ import { useI18n } from 'vue-i18n';
 import { useMap, useControls, useGeoJSON, useMarker, usePopup, type Map } from 'mapbox-composition';
 import { feature, featureCollection } from '@turf/helpers';
 import LegendControl from 'mapboxgl-legend';
-import useDataRepository from '/@/repository';
+import { useRoofsRepository } from '/@/repositories';
 import RoofPopup from '/@/components/RoofPopup.vue';
 import BuildingPopup from '/@/components/BuildingPopup.vue';
 import config from '/@/config.yaml';
@@ -50,7 +50,7 @@ export default {
       try {
         status.type = 'waiting';
         status.message = 'LOADING_DATA';
-        const { roofs, buildings } = await useDataRepository();
+        const { roofs, buildings } = await useRoofsRepository();
 
         status.message = 'LOADING_MAP';
         const map = await useMap('map', { ...config.map, accessToken });
