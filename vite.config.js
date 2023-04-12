@@ -15,6 +15,10 @@ export default defineConfig({
       include: [path.resolve(__dirname, './src/locales/**')],
     }),
   ],
+  test: {
+    globals: true,
+    environment: 'jsom',
+  },
   css: { postcss: { plugins: [autoprefixer()] } },
   resolve: {
     alias: [

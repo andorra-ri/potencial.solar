@@ -16,14 +16,16 @@
       "/@/*": ["src/*"]
     },
     "types": [
-      "vite/client"
-    ]
+      "vite/client",
+      "vitest/globals"
+    ],
   },
   "include": [
     "src/env.d.ts",
     "src/**/*.ts",
     "src/**/*.vue",
-    "vite.config.*"
+    "vite.config.*",
+    "tests/**/*.ts"
   ],
   "exclude": [
     "node_modules",
