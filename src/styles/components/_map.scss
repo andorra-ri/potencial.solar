@@ -1,108 +1,70 @@
 #map {
-	height: 80vh;
-	background: #f8f8f8;
-	margin: 2rem 1rem;
-	border-radius: 5px;
-	position: relative;
-	border: 1px solid #0001;
+  height: 80vh;
+  background: #f8f8f8;
+  border-radius: 5px;
+  border: 1px solid #0001;
 }
 
 .mapboxgl-ctrl-legend {
-	&-pane {
-		summary {
-			text-transform: none;
-			font-size: 0.9rem;
-		}
+  &-pane {
+    summary {
+      text-transform: none;
+      font-size: 0.9rem;
+    }
 
-		.labels span { white-space: nowrap; }
-	}
+    .labels span { white-space: nowrap; }
+  }
 }
 
 .mapboxgl-popup {
-	min-width: 275px;
+  min-width: 275px;
 
-	details {
-		margin: 0 0.75rem;
-	}
+  details {
+    margin: 0 0.75rem;
+  }
 
-	summary {
-		margin: 0.75rem 0 0;
-		text-transform: uppercase;
-		font-size: 0.85em;
-		font-weight: bold;
-		cursor: pointer;
-	}
+  summary {
+    margin: 0.75rem 0 0;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
-	.metrics {
-		li {
-			display: flex;
-			white-space: nowrap;
-			margin: 0.25rem 0;
+  .metrics {
+    li {
+      display: flex;
+      white-space: nowrap;
+      margin: 0.25rem 0;
 
-			em {
-				flex: 1;
-				display: flex;
-				align-items: center;
-				opacity: 0.5;
-				margin-right: 0.5rem;
+      em {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        opacity: 0.5;
+        margin-right: 0.5rem;
 
-				&::after {
-					content: '';
-					flex: 1;
-					margin-left: 0.5rem;
-					border-top: 1px solid #0002;
-				}
-			}
+        &::after {
+          content: '';
+          flex: 1;
+          margin-left: 0.5rem;
+          border-top: 1px solid #0002;
+        }
+      }
 
-			strong { font-size: 1.2em; }
-		}
-	}
+      strong { font-size: 1.2em; }
+    }
+  }
 
-	input[type=range] {
-		margin: 0.5rem 0 0;
-		width: 100%;
-	}
+  input[type="range"] {
+    margin: 0.5rem 0 0;
+    width: 100%;
+  }
 }
 
 .marker-alert {
-	height: 2.5em;
-	width: 2.5em;
-	background: url('/alert.svg') no-repeat center center;
-	background-size: 100%;
-}
-
-.error,
-.waiting {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	padding: 1em 1.5rem;
-	transform: translate(-50%, -50%);
-	display: flex;
-	align-items: center;
-	border-radius: 5px;
-	background: #fff;
-	box-shadow: 0 0 0 3px #0001;
-
-	&::before {
-		content: '';
-		display: block;
-		width: 1.5rem;
-		height: 1.5rem;
-		background: currentColor;
-		pointer-events: none;
-		margin-right: 1em;
-		mask-position: center;
-		mask-repeat: no-repeat;
-		mask-size: contain;
-	}
-}
-
-.error {
-	color: #f65;
-	&::before { mask-image: url('/@/assets/alert.svg'); }
-}
-
-.waiting {
-	&::before { mask-image: url('/@/assets/download.svg'); }
+  height: 2.5em;
+  width: 2.5em;
+  background: url("/alert.svg") no-repeat center center;
+  background-size: 100%;
 }

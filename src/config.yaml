@@ -1,20 +1,38 @@
+api:
+  tables:
+    ROOFS: roofs_radiation_andorra
+
 constants:
-  LIFESPAN: 25 # years
-  PANEL_AREA: 1.8 # 1.8 m2
-  PANEL_POWER: 0.38 # 0.38 kWp
-  EFFICIENCY: 0.83 # 83%
-  COSTS:
-    REF: 1.3 # €/kWp
-    INSTALL: [[2, 1.50], [6, 1.3], [20, 1.15], [50, 1.10], [Infinity, 1]] # €/kW
+  panel:
+    LIFESPAN: 25 # years
+    AREA: 1.8 # m2
+    POWER: 0.38 # kWp
+    EFFICIENCY: 0.83 # %
+  costs:
+    REFERENCE: 1.3 # €/kWp
+    INSTALLATION: [[2, 1.50], [6, 1.3], [20, 1.15], [50, 1.10], [Infinity, 1]] # €/kW
     OPERATION: [[50, 25], [Infinity, 18]] # €/kWp
-  GRANT: 0.4 # 40%
-  GRANT_MAX: 8000 # €
-  ENERGY:
-    TARIFF_C_BASE: 0.1104 # €/kWh
-    TARIFF_BLUE_BASE: 0.153 # €/kWh
-    PRICE_INCREASE: 0.015 # 1.5%/year
-  EMISSIONS_FACTOR: 124 # gCO2/kWh
-  HOME_CONSUMPTION: 5768 # kWh/any
+  grants:
+    BASE: 0.4 # %
+    MAX: 8000 # €
+  tariffs:
+    C_BASE: 0.1104 # €/kWh
+    BLUE_BASE: 0.153 # €/kWh
+    INCREASE: 0.015 # %/year
+  environment:
+    EMISSIONS_FACTOR: 124 # gCO2/kWh
+    HOME_CONSUMPTION: 5768 # kWh/any
+
+docs:
+  - name: Informe metodològic
+    type: file
+    link: /docs/informe_metodologia.pdf
+  - name: Programa Renova
+    type: link
+    link: 'https://www.mediambient.ad/renova'
+  - name: Reglament de la generació d’energia elèctrica
+    type: link
+    link: 'https://www.bopa.ad/bopa/032069/Pagines/GR20200515_10_21_59.aspx'
 
 map:
   center: [1.6, 42.55]
@@ -22,68 +40,98 @@ map:
   minZoom: 10
   maxBounds: [[1.261305, 42.254118], [1.902439, 42.754004]]
   style: mapbox://styles/mapbox/light-v9
+  legend:
+    toggler: true
+    highlight: true
+    layers:
+      roofs: [fill-color]
+      buildings: [fill-color]
+  images:
+    alert: /alert.png
 
 markers:
-  - name: pas_de_la_casa
+  - title: pas_de_la_casa_meteo_conditions
     type: alert
-    coordinates: [1.734892, 42.541648]
-    text: meteo_conditions
+    geometry:
+      type: Point
+      coordinates: [1.734892, 42.541648]
 
 layers:
-  roofs:
-    name: Roofs
-    type: fill
-    paint:
-      fill-color: [
-        'interpolate', ['linear'],
-        ['get', 'meanRad'],
-        1199, '#e0e0e0',
-        1200, '#f3e79b',
-        1400, '#f8a07e',
-        1600, '#ce6693',
-        1800, '#5c53a5']
-      fill-outline-color: [
-        'interpolate', ['linear'],
-        ['zoom'],
-        12, transparent,
-        19, '#666']
-    metadata:
-      name: 'Irradiació útil per coberta'
-      labels:
-        # Hack to display appropriate legend tags
-        1199: 1200 kWh/m²
-        1200: ' '
-        1400: ' '
-        1600: ' '
-        1800: 1800 kWh/m²
+  ROOFS:
+    - name: roofs
+      type: fill
+      visible: false
+      paint:
+        fill-color: [
+          interpolate, [linear],
+          [get, meanRad],
+          1199, '#e0e0e0',
+          1200, '#f3e79b',
+          1400, '#f8a07e',
+          1600, '#ce6693',
+          1800, '#5c53a5']
+        fill-outline-color: [
+          interpolate, [linear],
+          [zoom],
+          12, transparent,
+          19, '#666']
+      metadata:
+        name: 'Irradiació útil per coberta'
+        labels:
+          # Hack to display appropriate legend tags
+          1199: 1200 kWh/m²
+          1200: ' '
+          1400: ' '
+          1600: ' '
+          1800: 1800 kWh/m²
 
-  buildings:
-    name: Buildings
-    type: fill
-    paint:
-      fill-color: [
-        'match',
-        ['case',
-          ['==', ['get', 'returnPeriod'], null], 'NOT_APPLICABLE',
-          ['<=', ['get', 'returnPeriod'], 5.5], 'VERY_GOOD',
-          ['all', ['>', ['get', 'returnPeriod'], 5.5], ['<=', ['get', 'returnPeriod'], 7]], 'GOOD',
-          ['all', ['>', ['get', 'returnPeriod'], 7], ['<=', ['get', 'returnPeriod'], 9]], 'AVG',
-          'BAD'],
-        'VERY_GOOD', '#497a49',
-        'GOOD', '#98be68',
-        'AVG', '#edeac2',
-        'BAD', '#d6bd8d',
-        '#e0e0e0']
-      fill-outline-color: [
-        'interpolate', ['linear'],
-        ['zoom'],
-        12, transparent,
-        19, '#555']
-    metadata:
-      name: Potencial d'aprofitament fotovoltaic
-      labels:
-        BAD: Baix
-        AVG: Moderat
-        GOOD: Bo
-        VERY_GOOD: Molt bo
-        other: No aprofitable
+  BUILDINGS:
+    - name: buildings
+      type: fill
+      paint:
+        fill-color: [
+          match,
+          [case,
+            [==, [get, returnPeriod], null], NOT_APPLICABLE,
+            [<=, [get, returnPeriod], 5.5], VERY_GOOD,
+            [all, ['>', [get, returnPeriod], 5.5], [<=, [get, returnPeriod], 7]], GOOD,
+            [all, ['>', [get, returnPeriod], 7], [<=, [get, returnPeriod], 9]], AVG,
+            BAD],
+          VERY_GOOD, '#497a49',
+          GOOD, '#98be68',
+          AVG, '#edeac2',
+          BAD, '#d6bd8d',
+          '#e0e0e0']
+        fill-outline-color: [
+          interpolate, [linear],
+          [zoom],
+          12, transparent,
+          19, '#555']
+      metadata:
+        name: Potencial d'aprofitament fotovoltaic
+        labels:
+          BAD: Baix
+          AVG: Moderat
+          GOOD: Bo
+          VERY_GOOD: Molt bo
+          other: No aprofitable
+  
+  MARKERS:
+    - name: marker
+      type: symbol
+      minzoom: 15
+      layout:
+        icon-allow-overlap: true
+        icon-size: 0.1
+        icon-image: ['match', ['get', 'type'],
+          alert, alert,
+          marker]
+        text-field: [get, title]
+        text-size: 12
+        text-variable-anchor: [top, left]
+        text-radial-offset: 1.5
+        text-justify: center
+        text-allow-overlap: true
+        text-line-height: 1
+      paint:
+        text-color: red

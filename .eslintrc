@@ -5,14 +5,19 @@
     "browser": true
   },
   "extends": [
+    "eslint:recommended",
     "airbnb-base",
+    "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-recommended",
-    "eslint:recommended"
+    "@vue/eslint-config-typescript/recommended"
   ],
-  "plugins": ["vue"],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["vue", "@typescript-eslint"],
   "rules": {
-    "no-tabs": "off",
-    "indent": ["error", "tab", { "SwitchCase": 1 }],
     "max-len": ["error", {
       "code": 100,
       "ignoreTrailingComments": true,
@@ -25,28 +30,34 @@
     "object-shorthand": ["error", "always", { "avoidQuotes": false }],
     "no-nested-ternary": "off",
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "import/no-absolute-path": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "vue/component-tags-order": ["error", { "order": ["template", "script", "style"] }],
-    "vue/html-indent": ["error", "tab"],
+    "vue/multi-word-component-names": "off",
     "vue/html-closing-bracket-newline": ["error", {
       "singleline": "never",
       "multiline": "never"
     }],
     "vue/max-attributes-per-line": ["error", {
       "singleline": 3,
-      "multiline": {
-        "max": 1,
-        "allowFirstLine": false
-      }
+      "multiline": 1
     }],
     "vue/singleline-html-element-content-newline": "off",
-    "import/no-absolute-path": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      { "ts": "never" }
+    ]
   },
   "settings": {
     "import/resolver": {
-      alias: {
-        map: [['/@', './src']],
-        extensions: ['.js', '.json', '.vue', '.yaml']
+      "eslint-import-resolver-custom-alias": {
+        "alias": { "/@": "./src" },
+        "extensions": [".ts", ".json", ".vue", ".yaml"]
       }
     }
   }

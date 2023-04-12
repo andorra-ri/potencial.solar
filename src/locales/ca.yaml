@@ -9,22 +9,24 @@ project:
   warn: El potencial fotovoltaic de les cobertes s'ha estimat a través d'una metodologia a gran escala. En aquest sentit, els resultats presentats no són substitut d'un anàlisi tècnic específic realitzat per una enginyeria, sinó que pretenen ajudar a identificar zones i cobertes potencialment interessants. Us animem a llegir l'informe metodològic per conèixer més detall de la metodologia implementada, així com de les seves limitacions.
   docs: Documents de referència
 
-rooftopNotUsable: Coberta no aprofitable
+roofNotUsable: Coberta no aprofitable
 buildingNotUsable: Edifici no aprofitable
 
-alert:
-  meteoConditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
+markers:
+  pas_de_la_casa_meteo_conditions: El potencial fotovoltaic d'aquesta zona pot estar sobreestimat degut a que els paràmetres de simulació han estat ajustats en base a les condicions de nuvolositat de la Vall Central.
 
 button:
   calculateCo2: Calcula les teves emissions de CO₂
 
 status:
   ERROR_SUPABASE_LOAD: S'ha produit un error al carregar les dades. Intenta refrescar la pàgina.
+  ERROR: S'ha produït un error inesperat.
   LOADING_DATA: Carregant dades...
   LOADING_MAP: Carregant mapa...
   LOADING_LAYERS: Carregant capes...
 
 metric:
+  cesi: Edifici CESI {cesi}
   resource: Recurs solar
   installation: Instal·lació
   economics: Indicadors econòmics
