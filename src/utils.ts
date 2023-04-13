@@ -33,6 +33,7 @@ export const findCost = (costs: [number, number][], value: number) => {
   return cost;
 };
 
+// Convert an array of items that contain a geometry into a FeatureCollection
 export const toFeatureCollection = (items: { geometry: Geometry, properties?: object }[]) => {
   const features = items.map(({ geometry: g, properties: p, ...rest }) => feature(g, p ?? rest));
   return featureCollection(features);
