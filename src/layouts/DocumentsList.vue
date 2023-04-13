@@ -3,7 +3,7 @@
     <h2>{{ t('project.docs') }}</h2>
     <p v-for="doc in props.docs" :key="doc.name">
       <a :href="doc.link" target="blank">
-        <img :src="`/doc-${doc.type}.svg`">
+        <img :src="`/doc-${doc.type}.svg`" :alt="doc.name">
         {{ doc.name }}
       </a>
     </p>
