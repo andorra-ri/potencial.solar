@@ -42,7 +42,6 @@ map:
   style: mapbox://styles/mapbox/light-v9
   legend:
     toggler: true
-    highlight: true
     layers:
       roofs: [fill-color]
       buildings: [fill-color]
