@@ -1,9 +1,10 @@
+@use "sass:meta";
+@use "layout";
+
 @import "https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap";
-@import
-  "layout",
-  "typography",
-  "media",
-  "components/map";
+@include meta.load-css("typography");
+@include meta.load-css("media");
+@include meta.load-css("components/map");
 
 :root {
   font-size: 16px;
