@@ -29,10 +29,10 @@ docs:
     link: /docs/informe_metodologia.pdf
   - name: Programa Renova
     type: link
-    link: 'https://www.mediambient.ad/renova'
-  - name: Reglament de la generació d’energia elèctrica
+    link: 'https://www.e-tramits.ad/tramits/ca/pla-renova---ajuts-per-a-la-millora-del-parc-immobiliari-nacional-la-millora-de-leficiencia-energetica-dels-edificis-i-lus-de-les-energies-renovables/p/GV000565'
+  - name: Generació d’energia elèctrica
     type: link
-    link: 'https://www.bopa.ad/bopa/032069/Pagines/GR20200515_10_21_59.aspx'
+    link: 'https://www.govern.ad/ca/tematiques/accio-climatica/energia-i-canvi-climatic/transicio-energetica/generacio-energia-electrica'
 
 map:
   center: [1.6, 42.55]
